@@ -1,84 +1,39 @@
-.vertMenu{
+.header, .menu, .header-rightSide, .header-authUser{ display: flex; }
+
+.header, .header-rightSide, .header-authUser{ align-items: center; }
+
+.menu-icon, .header-authUser, .header-logoutIcon, .header-notifIcon{ cursor: pointer; }
+
+.header{
     background-color: #040C0A;
-    width: 200px;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
+    width: 100%;
+    height: 70px;
+    justify-content: space-between;
+    padding: 0 20px;
     color: #fff;
 }
 
-.vertMenu-items{
-    margin-top: 30px;
-    display: flex;
-    height: 55%;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.vertMenu-item{
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    padding: 0 10px;
-}
-
-.vertMenu-item:hover{
-    transition: 0.7s;
-    color: #888;
-}
-
-.vertMenu-logo{
+.header-logo{
     cursor: default;
     font-size: 25px;
     font-weight: bold;
-    text-align: center;
-    padding: 30px;
-    background-color: #0A1814;
 }
 
-.vertMenu-icon{
-    font-size: 35px;
+.menu{ width: 30%; justify-content: space-evenly; }
+
+.menu-icon { font-size: 32px;  }
+
+.header-rightSide{ width: 20%; justify-content: space-between; }
+
+.header-authUser{ margin-right: 20px; flex-grow: 1; }
+
+.header-imgUser{
+    width: 35px;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
     margin-right: 10px;
 }
 
-.horizMenu{
-    position: absolute;
-    left: 200px;
-    top: 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: calc(100% - 200px);
-    padding: 5px 30px;
-}
+.header-logoutIcon, .header-notifIcon{ font-size: 30px;  }
 
-.horizMenu-authUser, .horizMenu-rightSide{
-    display: flex;
-    align-items: center;
-}
-
-.horizMenu-imgUser{
-    width: 50px;
-    aspect-ratio: 1/1;
-}
-
-.horizMenu-notifIcon{
-    margin-right: 30px;
-}
-
-.horizMenu-logoutIcon{
-    margin-left: 8px;
-}
-
-.horizMenu-notifIcon, .horizMenu-logoutIcon{
-    font-size: 18px;
-}
-
-.horizMenu-logout{
-    cursor: pointer;
-}
-
-.horizMenu-rightSide span{
-    position: relative;
-    bottom: 4px;
-}
+.header-logoutIcon{ margin-left: 25px; }
