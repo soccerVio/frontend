@@ -1,6 +1,7 @@
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #0A1814;
 }
 
 *{
@@ -10,7 +11,7 @@ body {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    overflow-x: hidden;
+    color: #fff;
 }
 
 code {

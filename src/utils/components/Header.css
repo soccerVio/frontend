@@ -1,0 +1,45 @@
+.header, .menu, .header-rightSide, .header-authUser{ display: flex; }
+
+.header, .header-rightSide, .header-authUser{ align-items: center; }
+
+.menu-icon, .header-authUser{ cursor: pointer; }
+
+.header{
+    background-color: #040C0A;
+    height: 70px;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+.header-logo{ cursor: default; font-size: 25px; }
+
+.menu{ width: 30%; justify-content: space-evenly; }
+
+.menu-item{ position: relative; }
+
+.menu-icon { font-size: 30px;  }
+
+.menu-label{
+    position: absolute;
+    bottom: -30px;
+    background-color: #3a3a3a;
+    padding: 2px 5px;
+    border-radius: 5px;
+    font-size: 14px;
+    opacity: 0;
+}
+
+.menu-item:hover .menu-label{ opacity: 1; transition: 0.5s; }
+
+.menu-item:not(:hover) .menu-label{ opacity: 0; transition: 0.5s; }
+
+.header-rightSide{ width: 20%; justify-content: space-between; }
+
+.header-imgUser{
+    width: 35px;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.header-logoutIcon, .header-notifIcon{ font-size: 27px;  }
