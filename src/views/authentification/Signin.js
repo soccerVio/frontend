@@ -6,7 +6,6 @@ import {
   FaTwitterSquare,
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import { users_url } from "../../constants/Constants";
 import "./Authentification.css";
 
 const Signin = () => {
@@ -17,7 +16,7 @@ const Signin = () => {
 
   const submitSignin = useCallback(async () => {
     try {
-      let response = await axios.post(`${users_url}sign-in`, {
+      let response = await axios.post(`${process.env.REACT_APP_BACKEND_USERS_URL}sign-in`, {
         username: username,
         password: password,
       });

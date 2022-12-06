@@ -7,7 +7,6 @@ import {
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import { users_url } from "../../constants/Constants";
 import "./Authentification.css";
 
 const Signup = () => {
@@ -32,7 +31,7 @@ const Signup = () => {
         setPassword("");
         setConfirmPassword("");
       } else {
-        await axios.post(`${users_url}sign-up`, {
+        await axios.post(`${process.env.REACT_APP_BACKEND_USERS_URL}sign-up`, {
           email: email,
           username: username,
           fullname: fullname,

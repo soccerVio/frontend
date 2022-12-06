@@ -1,0 +1,109 @@
+.modal-background {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-container {
+  width: 50%;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: rgb(0 0 0 / 35%) 0px 5px 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+}
+
+.modal-icon-close {
+  background-color: #000;
+  color: #fff;
+  border-radius: 50%;
+  padding: 1;
+  width: 22px;
+  height: 22px;
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.modal-footer {
+  padding: 12px 20px;
+  display: flex;
+  justify-content: end;
+  column-gap: 15px;
+}
+
+.modal-btn {
+  padding: 6px 15px;
+  font-size: 16px;
+}
+
+.modal-btn-close {
+  background-color: #cb3333;
+}
+
+.modal-btn-close:hover {
+  background-color: #a12a2a;
+}
+
+/*from parent*/
+.modal-form {
+  display: flex;
+  row-gap: 20px;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.modal-form-row {
+  display: flex;
+  justify-content: space-between;
+  column-gap: 30px;
+}
+
+.modal-form-halfRow {
+  width: 100%;
+}
+
+.modal-form-label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.modal-form-input {
+  width: inherit;
+  padding: 4px;
+  border: none;
+  border-bottom: 1px solid #999;
+  outline: none;
+}
+
+.modal-form-input-file{
+    cursor: pointer;
+}
+
+.modal-form-input-file::-webkit-file-upload-button {
+  display: none;
+}
+
+.modal-form-switch {
+  display: flex;
+  align-items: center;
+}
+
+.modal-form-switch-label {
+  margin-right: 10px;
+  position: relative;
+  top: -1px;
+}

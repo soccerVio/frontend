@@ -11,10 +11,23 @@ body {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    color: #fff;
+    
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+button{
+  background-color: #008740;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  color:#fff;
+}
+
+button:hover{
+  transition: 0.7s;
+  background-color: #016b32;
 }

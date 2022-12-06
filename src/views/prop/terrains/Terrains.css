@@ -1,0 +1,25 @@
+.terrains-prop{
+    padding: 50px;
+}
+
+.terrains-ajout{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.terrains-ajout-btn{
+    padding: 8px 30px;
+    font-size: 16px;
+    margin-bottom: 40px;
+}
+
+.terrain-liste{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 15px;
+}
+
+.map-container{
+    width: 100%;
+    height: 500px;
+}

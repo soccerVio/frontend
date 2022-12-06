@@ -6,10 +6,12 @@ import { FiLogOut } from "react-icons/fi";
 import { TbMapSearch, TbSoccerField } from "react-icons/tb";
 
 import "./Header.css";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const refLabel = useRef([]);
   const refIcon = useRef([]);
+  const navigate = useNavigate();
 
   const pushRefLabel = useCallback((el) => refLabel.current.push(el))
   const pushRefIcon = useCallback((el) => refIcon.current.push(el))
@@ -32,7 +34,7 @@ const Header = () => {
           <BiCalendar className="menu-icon"/>
           <span className="menu-label" ref={pushRefLabel}>Reservations</span>
         </div>
-        <div className="menu-item" ref={pushRefIcon}>
+        <div className="menu-item" ref={pushRefIcon} onClick={()=>navigate('/proprietaire/terrains')}>
           <TbSoccerField className="menu-icon" />
           <span className="menu-label" ref={pushRefLabel}>Stades</span>
         </div>

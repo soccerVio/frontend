@@ -9,6 +9,7 @@
     height: 70px;
     justify-content: space-between;
     padding: 0 20px;
+    color: #fff;
 }
 
 .header-logo{ cursor: default; font-size: 25px; }
