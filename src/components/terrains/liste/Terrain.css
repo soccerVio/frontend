@@ -18,6 +18,8 @@
 
 .terrain-image{
     width: 100%;
+    flex-grow: 1;
+    object-fit: fill;
 }
 
 .terrain-more{
