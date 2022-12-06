@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { GoogleMap, useLoadScript, MarkerF } from "@react-google-maps/api";
 import Header from "../../../components/layout/Header";
 import Modal from "../../../utils/modal/Modal";
@@ -12,6 +12,7 @@ const Terrains = () => {
   const [openModalMap, setOpenModalMap] = useState(false);
   const [openModalTerrainForm, setOpenModalTerrainForm] = useState(false);
   const [image, setImage] = useState(null);
+  const [terrains, setTerrains] = useState([])
   const [terrain, setTerrain] = useState({
     latitude: 0,
     longitude: 0,
@@ -25,6 +26,19 @@ const Terrains = () => {
     proprietaire: 10,
   });
 
+  useEffect(()=>{
+    getTerrains()
+  })
+
+  const getTerrains = useCallback(async ()=>{
+    try{
+      let response = await axios.get(process.env.REACT_APP_BACKEND_TERRAINS_URL);
+      setTerrains(response.data)
+    }catch(error){
+      console.log(error);
+    }
+  })
+
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
   });
@@ -35,7 +49,7 @@ const Terrains = () => {
     formData.append("terrain", JSON.stringify(terrain));
     try {
       let response = await axios.post(
-        "http://localhost:8080/api/v1/terrains/ajout",
+        `${process.env.REACT_APP_BACKEND_TERRAINS_URL}/ajout`,
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
@@ -69,11 +83,7 @@ const Terrains = () => {
         </div>
 
         <div className="terrain-liste">
-          <Terrain />
-          <Terrain />
-          <Terrain />
-          <Terrain />
-          <Terrain />
+          {terrains.map(terrain => <Terrain ville={terrain.ville} prixHr={terrain.prixHr}  image={terrain.image}/>)}
         </div>
       </div>
       {openModalMap && (
