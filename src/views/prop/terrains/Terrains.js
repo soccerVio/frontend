@@ -11,28 +11,35 @@ const Terrains = () => {
   const [openModalMap, setOpenModalMap] = useState(false);
   const [openModalTerrainForm, setOpenModalTerrainForm] = useState(false);
   const [image, setImage] = useState(null);
-  const [terrains, setTerrains] = useState([])
+  const [terrains, setTerrains] = useState([]);
   const [terrain, setTerrain] = useState({
-    latitude: 0, longitude: 0,
-    ville: "", heureO: "",
+    latitude: 0,
+    longitude: 0,
+    ville: "",
+    heureO: "",
     description: "",
-    heureF: "", prixHr: 0,
-    nbrJoueur: 0, avecDouche: false,
-    assure: false, proprietaire: 10,
+    heureF: "",
+    prixHr: 0,
+    nbrJoueur: 0,
+    avecDouche: false,
+    assure: false,
+    proprietaire: 10,
   });
 
-  useEffect(()=>{
-    getTerrains()
-  },[])
+  useEffect(() => {
+    getTerrains();
+  }, []);
 
-  const getTerrains = useCallback(async ()=>{
-    try{
-      let response = await axios.get(process.env.REACT_APP_BACKEND_TERRAINS_URL);
-      setTerrains(response.data)
-    }catch(error){
+  const getTerrains = useCallback(async () => {
+    try {
+      let response = await axios.get(
+        process.env.REACT_APP_BACKEND_TERRAINS_URL
+      );
+      setTerrains(response.data);
+    } catch (error) {
       console.log(error);
     }
-  })
+  });
 
   const enregistrerTerrein = useCallback(async () => {
     const formData = new FormData();
@@ -45,7 +52,7 @@ const Terrains = () => {
         { headers: { "Content-Type": "multipart/form-data" } }
       );
       setOpenModalTerrainForm(false);
-      setTerrains([response.data, ...terrains])
+      setTerrains([response.data, ...terrains]);
     } catch (error) {
       console.log(error);
     }
@@ -74,7 +81,15 @@ const Terrains = () => {
         </div>
 
         <div className="terrain-liste">
-          {terrains.map(terrain => <Terrain key={terrain.id} ville={terrain.ville} prixHr={terrain.prixHr} image={terrain.image}/>)}
+          {terrains.map((terrain) => (
+            <Terrain
+              key={terrain.id}
+              ville={terrain.ville}
+              prixHr={terrain.prixHr}
+              image={terrain.image}
+              id={terrain.id}
+            />
+          ))}
         </div>
       </div>
       {openModalMap && (
@@ -86,7 +101,7 @@ const Terrains = () => {
             setOpenModalTerrainForm(true);
           }}
         >
-          <Map terrain={terrain} setTerrain={setTerrain}/>
+          <Map terrain={terrain} setTerrain={setTerrain} />
         </Modal>
       )}
       {openModalTerrainForm && (
@@ -95,7 +110,11 @@ const Terrains = () => {
           title="Les informations du terrain"
           onEnregistClick={enregistrerTerrein}
         >
-          <AddTerrain terrain={terrain} setImage={setImage} setTerrain={setTerrain}/>
+          <AddTerrain
+            terrain={terrain}
+            setImage={setImage}
+            setTerrain={setTerrain}
+          />
         </Modal>
       )}
     </>
