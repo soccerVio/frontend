@@ -1,35 +1,49 @@
 import axios from "axios";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useRef } from "react";
 import {
-  FaFacebookSquare,
-  FaGooglePlusSquare,
-  FaTwitterSquare,
-} from "react-icons/fa";
+    FaFacebookSquare,
+    FaGooglePlusSquare,
+    FaTwitterSquare }
+      from "react-icons/fa";
+import { BiShow, BiHide } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 import "./Authentification.css";
+import { ToastContainer } from "react-toastify";
+import { getErrorToast } from "../../utils/toasts/Toast";
 
 const Signin = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const passwordInput = useRef();
 
   const navigate = useNavigate();
 
-  const submitSignin = useCallback(async () => {
+  
+  const submitSignin = useCallback(async () => {  
     try {
-      let response = await axios.post(`${process.env.REACT_APP_BACKEND_USERS_URL}sign-in`, {
-        username: username,
-        password: password,
-      });
-      console.log(response.data)
+      let response = await axios.post(
+        `${process.env.REACT_APP_BACKEND_USERS_URL}sign-in`,
+        {
+          username: username,
+          password: password,
+        }
+      );
+      console.log(response.data);
       navigate("/home");
     } catch (error) {
-      console.log(error);
+      let titleError =
+        error.response.status === 403
+          ? "Username ou mot de passe sont incorrects!"
+          : "Désolé, un problème est survenu!";
+      getErrorToast(titleError);
     }
-  });
+  },[username, password, navigate]);
+
   return (
     <div className="container-authentification">
       <div className="form-authentification form-sigin">
-        <h2 className="title-authentification">Sign in</h2>
+        <h2 className="title-authentification">Se connecter</h2>
         <div className="inputs-authentification">
           <input
             className="input-authentification "
@@ -40,20 +54,35 @@ const Signin = () => {
             onChange={(e) => setUsername(e.target.value)}
           />
         </div>
-        <div className="inputs-authentification">
+        <div className="inputs-authentification inputs-password">
+          {!showPassword ? (
+            <BiShow
+              className="show-hide-password"
+              onClick={() => setShowPassword(true)}
+            />
+          ) : (
+            <BiHide
+              className="show-hide-password"
+              onClick={() => setShowPassword(false)}
+            />
+          )}
           <input
             className="input-authentification "
-            type="password"
+            type={showPassword ? "text" : "password"}
             name="password-signin"
-            placeholder="Password"
+            placeholder="Mot de passe"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            ref={passwordInput}
           />
         </div>
-        <button className="submit-authentification-btn submit-signin-btn" onClick={submitSignin}>
-          Submit
+        <button
+          className="submit-authentification-btn submit-signin-btn"
+          onClick={submitSignin}
+        >
+          Se connecter
         </button>
-        <p className="parag-authentification">Or Sign in with</p>
+        <p className="parag-authentification">Ou se connecter par</p>
         <div className="icons-authentification icons-signin">
           <FaFacebookSquare className="icon-authentification" />
           <FaGooglePlusSquare className="icon-authentification" />
@@ -61,10 +90,11 @@ const Signin = () => {
         </div>
 
         <p className="last-parag-authentification">
-          You don't have an account?{" "}
-          <span onClick={() => navigate("/signup")}>Sign up</span>
+          Vous n'avez pas un compte?{" "}
+          <span onClick={() => navigate("/inscription")}>Créer un compte</span>
         </p>
       </div>
+      <ToastContainer />
     </div>
   );
 };
