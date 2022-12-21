@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useCallback, useState, useRef } from "react";
+import React, { useCallback, useState, useRef, useEffect } from "react";
 import {
     FaFacebookSquare,
     FaGooglePlusSquare,
@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import "./Authentification.css";
 import { ToastContainer } from "react-toastify";
 import { getErrorToast } from "../../utils/toasts/Toast";
+import { isLogged } from "../../constants/user";
 
 const Signin = () => {
   const [username, setUsername] = useState("");
@@ -19,7 +20,11 @@ const Signin = () => {
 
   const navigate = useNavigate();
 
-  
+  useEffect(()=>{
+    if(isLogged())
+      navigate('/accueil')
+  },[navigate])
+
   const submitSignin = useCallback(async () => {  
     try {
       let response = await axios.post(
@@ -29,8 +34,9 @@ const Signin = () => {
           password: password,
         }
       );
-      console.log(response.data);
-      navigate("/home");
+      localStorage.setItem('user', JSON.stringify(response.data.user))
+      localStorage.setItem('token', response.data.token)
+      navigate("/accueil");
     } catch (error) {
       let titleError =
         error.response.status === 403
@@ -39,6 +45,7 @@ const Signin = () => {
       getErrorToast(titleError);
     }
   },[username, password, navigate]);
+
 
   return (
     <div className="container-authentification">

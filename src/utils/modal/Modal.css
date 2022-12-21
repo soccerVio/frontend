@@ -66,6 +66,10 @@
   padding: 10px;
 }
 
+.modal-form-rowComp{
+  width: 100%;
+}
+
 .modal-form-row {
   display: flex;
   justify-content: space-between;
@@ -78,6 +82,7 @@
 
 .modal-form-label {
   display: block;
+  font-size: 15px;
   margin-bottom: 5px;
 }
 

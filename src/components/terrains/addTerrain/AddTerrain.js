@@ -1,43 +1,59 @@
 import React from "react";
 import CostumSwitch from "../../../utils/switch/CustomSwitch";
-import cities from "../../../files/cities.json";
 
-const AddTerrain = ({ terrain, setImage, setTerrain }) => {
+const AddTerrain = ({ terrain, setImages, setTerrain }) => {
+
   return (
     <div className="modal-form">
+      <div className="modal-form-rowComp">
+        <label className="modal-form-label" htmlFor="titre">
+          Titre
+        </label>
+        <input
+          id="titre"
+          type="text"
+          className="modal-form-input"
+          value={terrain.titre}
+          onChange={(e) =>
+            setTerrain({
+              ...terrain,
+              titre: e.target.value,
+            })
+          }
+        />
+      </div>
+
       <div className="modal-form-row">
         <div className="modal-form-halfRow">
           <label className="modal-form-label" htmlFor="image">
-            Image du terrain
+            Images du terrain
           </label>
           <input
             type="file"
             id="image"
             className="modal-form-input modal-form-input-file"
             accept="image/*"
-            onChange={(e) => setImage(e.target.files[0])}
+            multiple
+            onChange={(e) => setImages(e.target.files)}
           />
         </div>
 
         <div className="modal-form-halfRow">
-          <label className="modal-form-label" htmlFor="ville">
-            Ville
+          <label className="modal-form-label" htmlFor="adresse">
+            Adresse
           </label>
-          <select
-            id="ville"
+          <input
+            id="adresse"
+            type="text"
             className="modal-form-input"
-            value={terrain.ville}
-            onChange={(e) => setTerrain({ ...terrain, ville: e.target.value })}
-          >
-            <option disabled value="">
-              Choisissez la ville du terrain
-            </option>
-            {cities.names.map((name) => (
-              <option value={name} key={name}>
-                {name}
-              </option>
-            ))}
-          </select>
+            value={terrain.adresse}
+            onChange={(e) =>
+              setTerrain({
+                ...terrain,
+                adresse: e.target.value,
+              })
+            }
+          />
         </div>
       </div>
 
@@ -82,6 +98,7 @@ const AddTerrain = ({ terrain, setImage, setTerrain }) => {
             type="number"
             id="prixHr"
             className="modal-form-input"
+            min="10"
             value={terrain.prixHr}
             onChange={(e) =>
               setTerrain({
@@ -96,18 +113,25 @@ const AddTerrain = ({ terrain, setImage, setTerrain }) => {
           <label className="modal-form-label" htmlFor="nbrJoueur">
             Joueur par équipe
           </label>
-          <input
-            type="number"
+          <select
             id="nbrJoueur"
             className="modal-form-input"
             value={terrain.nbrJoueur}
             onChange={(e) =>
-              setTerrain({
-                ...terrain,
-                nbrJoueur: parseInt(e.target.value),
-              })
+              setTerrain({ ...terrain, nbrJoueur: e.target.value })
             }
-          />
+          >
+            <option disabled value="">
+              Choisissez le nombre de joueurs par équipe
+            </option>
+            <option value="5">5 joueurs par équipe</option>
+            <option value="6">6 joueurs par équipe</option>
+            <option value="7">7 joueurs par équipe</option>
+            <option value="8">8 joueurs par équipe</option>
+            <option value="9">9 joueurs par équipe</option>
+            <option value="10">10 joueurs par équipe</option>
+            <option value="11">11 joueurs par équipe</option>
+          </select>
         </div>
       </div>
 

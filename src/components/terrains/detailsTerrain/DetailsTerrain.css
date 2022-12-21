@@ -1,21 +1,55 @@
-.detailsTerrain-cotainer{
+.detailsTerrain-container{
     color: #fff;
     padding: 70px;
     display: flex;
     column-gap: 25px;
 }
 
-.detailsTerrain-image{
-    width: 47%;
+.detailsTerrain-images, .detailsTerrain-mainImage, .detailsTerrain-content{
+    width: 100%;
+}
+
+.detailsTerrain-mainImage{
     aspect-ratio: 1/1;
     object-fit: contain;
     background-color: black;
+}
+
+.detailsTerrain-otherImages{
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(8, auto);
+    gap: 10px;
+}
+
+.detailsTerrain-smallImage{
+    width: 100%;
+    max-width: 65px;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.detailsTerrain-smallImage:hover{
+    box-shadow: rgba(255, 255, 255, 0.16) 0px 1px 4px, rgb(221, 221, 221) 0px 0px 0px 2px;
+    scale: 1.05;
+    transition: 0.5s;
 }
 
 .detailsTerrain-content{
     display: flex;
     flex-direction: column;
     row-gap: 20px;
+}
+
+.detailsTerrain-titre{ 
+    margin-bottom: 20px;
+}
+
+.detailsTerrain-description{
+    margin-top: 30px;
+    display: block;
 }
 
 .detailsTerrain-btn {

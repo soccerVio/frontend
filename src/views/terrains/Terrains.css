@@ -2,15 +2,23 @@
     padding: 50px;
 }
 
-.terrains-ajout{
+.terrains-header{
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    margin-bottom: 40px;
+}
+
+.terrainList-recherche{
+    width: 20%;
+    outline: none;
+    border: none;
+    padding: 5px;
+    border-radius: 2px;
 }
 
 .terrains-ajout-btn{
     padding: 8px 30px;
     font-size: 16px;
-    margin-bottom: 40px;
 }
 
 .terrain-liste{

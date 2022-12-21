@@ -1,12 +1,24 @@
 import axios from "axios";
 import React, { useCallback, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import Header from "../../layout/Header";
+import { useLocation, useNavigate } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import { isJoueur, isProprietaire } from "../../../constants/user";
+import Confirm from "../../../utils/confirm/Confirm";
+import Modal from "../../../utils/modal/Modal";
+import { getErrorToast, getSuccessToast } from "../../../utils/toasts/Toast";
+import AddTerrain from "../addTerrain/AddTerrain";
 import "./DetailsTerrain.css";
 
 const DetailsTerrain = () => {
-  const params = useParams();
+  const { state } = useLocation();
   const [terrain, setTerrain] = useState(null);
+  const [mainImage, setMainImage] = useState(null);
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [images, setImages] = useState(null)
+  const backend_url = process.env.REACT_APP_BACKEND_TERRAINS_URL;
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     getTerrain();
@@ -14,40 +26,88 @@ const DetailsTerrain = () => {
 
   const getTerrain = useCallback(async () => {
     try {
-      let response = await axios.get(
-        `${process.env.REACT_APP_BACKEND_TERRAINS_URL}/${params.id}`
-      );
+      let response = await axios.get(`${backend_url}/${state.id}`);
       setTerrain(response.data);
+      setMainImage(response.data.images[0]);
     } catch (error) {
       console.log(error);
     }
-  });
+  }, []);
 
-  const customTime = useCallback((time)=>{
-    const times = time.split(':')
-    return `${times[0]} : ${times[1]}`
-  })
+  const deleteTerrain = useCallback(async () => {
+    try {
+      await axios.delete(`${backend_url}/${terrain.id}`);
+      navigate("/terrains");
+    } catch (error) {
+      getErrorToast("impossible de supprimer le terrain!");
+    }
+    setShowConfirm(false);
+  }, [terrain]);
+
+  const customTime = useCallback((time) => {
+    const times = time.split(":");
+    return `${times[0]} : ${times[1]}`;
+  }, []);
+
+  const updateTerrain = useCallback(async () => {
+    const formData = new FormData();
+    formData.append("terrain", JSON.stringify(terrain));
+    if(images !== null){
+      for (let i = 0; i < images.length; i++)
+        formData.append("images", images[i]);
+    }
+    try{
+      await axios.put(`${process.env.REACT_APP_BACKEND_TERRAINS_URL}/update`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      })
+      setShowModal(false)
+      getSuccessToast('Terrain modifié avec succès')
+    }catch(error){
+      console.log(error);
+    }
+  }, [terrain, images]);
 
   return (
     <>
-      <Header />
       {terrain && (
-        <div className="detailsTerrain-cotainer">
-          <img
-            src={`data:${terrain.image.type};base64,${terrain.image.image}`}
-            alt="stade"
-            className="detailsTerrain-image"
-          />
+        <div className="detailsTerrain-container">
+          <div className="detailsTerrain-images">
+            <img
+              src={`data:${mainImage.type};base64,${mainImage.content}`}
+              alt="stade"
+              className="detailsTerrain-mainImage"
+            />
+            <div className="detailsTerrain-otherImages">
+              {terrain.images.map((image) => (
+                <img
+                  src={`data:${image.type};base64,${image.content}`}
+                  alt="stade"
+                  className="detailsTerrain-smallImage"
+                  key={image.id}
+                  onClick={() => setMainImage(image)}
+                />
+              ))}
+            </div>
+          </div>
           <div className="detailsTerrain-content">
             <div className="detailsTerrain-row">
-              <span>Ville : </span>
-              <span>{terrain.ville}</span>
+              <h2 className="detailsTerrain-titre">{terrain.titre}</h2>
             </div>
             <div className="detailsTerrain-row">
-              <span>Heure d'ouverture : </span>{customTime(terrain.heureO)}<span></span>
+              <span>Adresse : </span>
+              <span>{terrain.adresse}</span>
             </div>
             <div className="detailsTerrain-row">
-              <span>Heure de fermeture : </span>{customTime(terrain.heureF)}<span></span>
+              <span>Heure d'ouverture : </span>
+              {customTime(terrain.heureO)}
+              <span></span>
+            </div>
+            <div className="detailsTerrain-row">
+              <span>Heure de fermeture : </span>
+              {customTime(terrain.heureF)}
+              <span></span>
             </div>
             <div className="detailsTerrain-row">
               <span>Prix par heure : </span>
@@ -59,29 +119,64 @@ const DetailsTerrain = () => {
             </div>
             <div className="detailsTerrain-row">
               <span>Propriétaire : </span>
-              <span>{terrain.proprietaire.fullname}</span>
+              <span>{terrain.proprietaire.nomComplet}</span>
             </div>
             <div className="detailsTerrain-row">
-              {terrain.avecDouche ? <span>Avec douche</span> : <span>Sans douche</span>}
+              {terrain.avecDouche ? (
+                <span>Avec douche</span>
+              ) : (
+                <span>Sans douche</span>
+              )}
             </div>
             <div className="detailsTerrain-row">
-              {terrain.assure ? <span>Assuré</span> : <span>Pas assuré</span>}
+              {terrain.assure ? (
+                <span>Avec assurance</span>
+              ) : (
+                <span>Sans assurance</span>
+              )}
             </div>
             <div className="detailsTerrain-row">
-              <span>{terrain.description}</span>
+              <span className="detailsTerrain-description">
+                {terrain.description}
+              </span>
             </div>
             <div className="detailsTerrain-row">
-              <button className="detailsTerrain-btn">Réserver</button>
-              <button className="detailsTerrain-btn detailsTerrain-btn-editer">
-                Editer
-              </button>
-              <button className="detailsTerrain-btn detailsTerrain-btn-supprimer">
-                Supprimer
-              </button>
+              {isJoueur() && (
+                <button className="detailsTerrain-btn">Réserver</button>
+              )}
+              {isProprietaire() && (
+                <>
+                  <button
+                    className="detailsTerrain-btn detailsTerrain-btn-editer"
+                    onClick={() => setShowModal(true)}
+                  >
+                    Editer
+                  </button>
+                  <button
+                    className="detailsTerrain-btn detailsTerrain-btn-supprimer"
+                    onClick={() => setShowConfirm(true)}
+                  >
+                    Supprimer
+                  </button>
+                </>
+              )}
             </div>
           </div>
         </div>
       )}
+      {showConfirm && (
+        <Confirm setShowConfirm={setShowConfirm} deleteClick={deleteTerrain} />
+      )}
+      {showModal && (
+        <Modal
+          openModal={setShowModal}
+          title="La modification du terrain"
+          onEnregistClick={updateTerrain}
+        >
+          <AddTerrain terrain={terrain} setTerrain={setTerrain} setImages={setImages}/>
+        </Modal>
+      )}
+      <ToastContainer/>
     </>
   );
 };
