@@ -1,0 +1,13 @@
+.reservations{
+    padding: 20px;
+}
+
+.reservations-calendrier{
+    padding: 25px;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+.fc-daygrid-day-events{
+    cursor: pointer;
+}

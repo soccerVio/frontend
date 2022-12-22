@@ -49,6 +49,10 @@ const DetailsTerrain = () => {
     return `${times[0]} : ${times[1]}`;
   }, []);
 
+  const customDate = useCallback((date)=>{
+    return date.split('T')[0]
+  },[])
+
   const updateTerrain = useCallback(async () => {
     const formData = new FormData();
     formData.append("terrain", JSON.stringify(terrain));
@@ -98,6 +102,10 @@ const DetailsTerrain = () => {
             <div className="detailsTerrain-row">
               <span>Adresse : </span>
               <span>{terrain.adresse}</span>
+            </div>
+            <div className="detailsTerrain-row">
+              <span>Date de création : </span>
+              <span>{customDate(terrain.dateCreation)}</span>
             </div>
             <div className="detailsTerrain-row">
               <span>Heure d'ouverture : </span>
@@ -165,7 +173,7 @@ const DetailsTerrain = () => {
         </div>
       )}
       {showConfirm && (
-        <Confirm setShowConfirm={setShowConfirm} deleteClick={deleteTerrain} />
+        <Confirm setShowConfirm={setShowConfirm} confirmClick={deleteTerrain} />
       )}
       {showModal && (
         <Modal

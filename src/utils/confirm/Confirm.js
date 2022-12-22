@@ -1,7 +1,7 @@
 import React from "react";
 import "./Confirm.css";
 
-const Confirm = ({ setShowConfirm, deleteClick }) => {
+const Confirm = ({ setShowConfirm, confirmClick }) => {
   return (
     <div className="confirm-background">
       <div className="confirm-container">
@@ -16,7 +16,7 @@ const Confirm = ({ setShowConfirm, deleteClick }) => {
           >
             Annuler
           </button>
-          <button className="confirm-button confirm-btn-confirmer" onClick={()=>deleteClick()}>
+          <button className="confirm-button confirm-btn-confirmer" onClick={()=>confirmClick()}>
             Confirmer
           </button>
         </div>

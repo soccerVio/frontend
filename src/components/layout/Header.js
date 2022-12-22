@@ -47,12 +47,12 @@ const Header = () => {
               Accueil
             </span>
           </div>
-          {/*<div className="menu-item" ref={pushRefIcon}>
-          <BiCalendar className="menu-icon" />
-          <span className="menu-label" ref={pushRefLabel}>
-            Reservations
-          </span>
-  </div>*/}
+          <div className="menu-item" ref={pushRefIcon} onClick={() => navigate('/reservations')}>
+            <BiCalendar className="menu-icon" />
+            <span className="menu-label" ref={pushRefLabel}>
+              Reservations
+            </span>
+          </div>
           <div
             className="menu-item"
             ref={pushRefIcon}
