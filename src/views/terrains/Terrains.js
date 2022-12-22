@@ -21,28 +21,32 @@ const Terrains = () => {
   const [images, setImages] = useState(null);
   const [terrains, setTerrains] = useState([]);
   const [terrain, setTerrain] = useState({
-    titre: "", latitude: 0,
-    longitude: 0, adresse: "",
-    heureO: "", description: "",
-    heureF: "", prixHr: 0,
-    nbrJoueur: 0, avecDouche: false,
-    assure: false, proprietaire: userInfo().id,
+    titre: "",
+    latitude: 0,
+    longitude: 0,
+    adresse: "",
+    heureO: "",
+    description: "",
+    heureF: "",
+    prixHr: 0,
+    nbrJoueur: 0,
+    avecDouche: false,
+    assure: false,
+    proprietaire: userInfo().id,
   });
+
+  const backend_url = process.env.REACT_APP_BACKEND_TERRAINS_URL;
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    if(!isLogged())
-      navigate("/")
-    else
-      getTerrains();
+    if (!isLogged()) navigate("/");
+    else getTerrains();
   }, []);
 
   const getTerrains = useCallback(async () => {
     try {
-      let response = await axios.get(
-        process.env.REACT_APP_BACKEND_TERRAINS_URL
-      );
+      let response = await axios.get(backend_url);
       response.data.length === 0
         ? getWaringToast("Il n'y a pas de terrains!")
         : setTerrains(response.data);
@@ -58,11 +62,9 @@ const Terrains = () => {
       for (let i = 0; i < images.length; i++)
         formData.append("images", images[i]);
       try {
-        let response = await axios.post(
-          `${process.env.REACT_APP_BACKEND_TERRAINS_URL}/ajout`,
-          formData,
-          { headers: { "Content-Type": "multipart/form-data" } }
-        );
+        let response = await axios.post(`${backend_url}/ajout`, formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
         setOpenModalTerrainForm(false);
         setTerrains([response.data, ...terrains]);
         getSuccessToast("Terrain ajoutée avec succès");
@@ -72,11 +74,39 @@ const Terrains = () => {
     } else getErrorToast("Entrez tous les champs!");
   }, [images, terrain, terrains]);
 
+  const mapClick = useCallback((latitude, longitude) => {
+    setTerrain({
+      ...terrain,
+      latitude,
+      longitude,
+    });
+  }, []);
+
+  const searchByAdresse = useCallback(async (e) => {
+    if (e.target.value !== "" && e.target.value !== null) {
+      try {
+        let response = await axios.get(
+          `${backend_url}/search/${e.target.value}`
+        );
+        setTerrains(response.data)
+      } catch (error) {
+        console.log(error);
+      }
+    }else
+      getTerrains();
+  }, []);
+
   return (
     <>
       <div className="terrains-prop">
         <div className="terrains-header">
-        <input type='text' className="terrainList-recherche" placeholder="Recherche par titre ou adresse"/>
+          <input
+            type="text"
+            className="terrainList-recherche"
+            placeholder="Recherche par adresse"
+            onChange={searchByAdresse}
+          />
+
           {isProprietaire() ? (
             <button
               className="terrains-ajout-btn"
@@ -118,7 +148,11 @@ const Terrains = () => {
             setOpenModalTerrainForm(true);
           }}
         >
-          <Map terrain={terrain} setTerrain={setTerrain} />
+          <Map
+            latitude={terrain.latitude}
+            longitude={terrain.longitude}
+            mapClick={mapClick}
+          />
         </Modal>
       )}
       {openModalTerrainForm && (

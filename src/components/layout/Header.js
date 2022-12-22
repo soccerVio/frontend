@@ -6,7 +6,7 @@ import { FiLogOut } from "react-icons/fi";
 import { TbMapSearch, TbSoccerField } from "react-icons/tb";
 import "./Header.css";
 import { Outlet, useNavigate } from "react-router-dom";
-import { isLogged, userInfo } from "../../constants/user";
+import { isJoueur, isLogged, userInfo } from "../../constants/user";
 
 const Header = () => {
   const refLabel = useRef([]);
@@ -47,7 +47,11 @@ const Header = () => {
               Accueil
             </span>
           </div>
-          <div className="menu-item" ref={pushRefIcon} onClick={() => navigate('/reservations')}>
+          <div
+            className="menu-item"
+            ref={pushRefIcon}
+            onClick={() => navigate("/reservations")}
+          >
             <BiCalendar className="menu-icon" />
             <span className="menu-label" ref={pushRefLabel}>
               Reservations
@@ -63,12 +67,18 @@ const Header = () => {
               Terrains
             </span>
           </div>
-          {/*<div className="menu-item" ref={pushRefIcon}>
-          <TbMapSearch className="menu-icon" />
-          <span className="menu-label" ref={pushRefLabel}>
-            Recherches
-          </span>
-</div>*/}
+          {isJoueur() && (
+            <div
+              className="menu-item"
+              ref={pushRefIcon}
+              onClick={() => navigate("/recherche")}
+            >
+              <TbMapSearch className="menu-icon" />
+              <span className="menu-label" ref={pushRefLabel}>
+                Recherches
+              </span>
+            </div>
+          )}
 
           {/*<BiUser className="menu-icon" />
         <MdOutlineReportProblem className="menu-icon" />
