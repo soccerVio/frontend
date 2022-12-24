@@ -36,10 +36,10 @@ const Reservations = () => {
               right: "dayGridMonth,dayGridWeek,dayGridDay",
             }}
             buttonText={{
-              today: "Ajourd'hui",
-              month: "Mois",
-              week: "Semaine",
-              day: "Jour",
+              today: "ajourd'hui",
+              month: "mois",
+              week: "semaine",
+              day: "jour",
             }}
             dayHeaderFormat={{ weekday: "long" }}
             eventTimeFormat={{
@@ -47,6 +47,7 @@ const Reservations = () => {
               minute: "2-digit",
               hour12: false,
             }}
+            locale= 'fr'
             eventClick={eventClick}
           />
         </div>

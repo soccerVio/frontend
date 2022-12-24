@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef } from "react";
 import { BiHome, BiCalendar /*, BiUser*/ } from "react-icons/bi";
 import { /*MdOutlineReportProblem,*/ MdNotifications } from "react-icons/md";
-//import { TfiAnnouncement } from "react-icons/tfi";
+import { TfiAnnouncement } from "react-icons/tfi";
 import { FiLogOut } from "react-icons/fi";
 import { TbMapSearch, TbSoccerField } from "react-icons/tb";
 import "./Header.css";
@@ -79,10 +79,18 @@ const Header = () => {
               </span>
             </div>
           )}
-
-          {/*<BiUser className="menu-icon" />
-        <MdOutlineReportProblem className="menu-icon" />
-        <TfiAnnouncement className="menu-icon" />*/}
+          {isJoueur() && (
+            <div
+              className="menu-item"
+              ref={pushRefIcon}
+              onClick={() => navigate("/annonces")}
+            >
+              <TfiAnnouncement className="menu-icon" />
+              <span className="menu-label" ref={pushRefLabel}>
+                Annonces
+              </span>
+            </div>
+          )}
         </nav>
         <div className="header-rightSide">
           <div className="header-authUser">
@@ -101,7 +109,11 @@ const Header = () => {
             )}
             <span className="header-nameUser">{user.nomComplet}</span>
           </div>
-          <div className="menu-item notif-item" ref={pushRefIcon}>
+          <div
+            className="menu-item notif-item"
+            ref={pushRefIcon}
+            onClick={() => navigate("/notifications")}
+          >
             <MdNotifications className="header-notifIcon menu-icon" />
             <span className="menu-label" ref={pushRefLabel}>
               Notifications

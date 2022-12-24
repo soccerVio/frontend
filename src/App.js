@@ -5,9 +5,11 @@ import Terrain from "./views/terrains/Terrains";
 import DetailsTerrain from "./components/terrains/detailsTerrain/DetailsTerrain";
 import "react-toastify/dist/ReactToastify.css";
 import Accueil from "./views/accueil/Accueil";
-import Header from "./components/layout/Header";
+import Header from "./components/header/Header";
 import Reservations from "./views/reservations/Reservations";
 import Recherche from "./views/recherches/Recherche";
+import Notifications from "./views/notifications/Notifications";
+import Annonces from "./views/annonces/Annonces";
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
         ></Route>
         <Route path="/reservations" element={<Reservations />}/>
         <Route path="/recherche" element={<Recherche />} />
+        <Route path="/notifications" element={<Notifications/>}/>
+        <Route path="/annonces" element={<Annonces/>}/>
       </Route>
     </Routes>
   );

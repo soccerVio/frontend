@@ -1,0 +1,11 @@
+:root {
+  --borderRadius: 15px;
+}
+
+.notifications-container {
+  padding: 30px 50px;
+  color: #fff;
+  display: flex;
+  column-gap: 50px;
+}
+

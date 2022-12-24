@@ -7,7 +7,7 @@ const Confirm = ({ setShowConfirm, confirmClick }) => {
       <div className="confirm-container">
         <h2 className="confirm-title">Vous êtes sur?</h2>
         <p className="confirm-parag">
-          Si vous confirmez vous ne pouvez revenire en arrière
+          Si vous confirmez vous ne pouvez revenir en arrière
         </p>
         <div className="confirm-buttons">
           <button
