@@ -59,6 +59,24 @@
   background-color: #a12a2a;
 }
 
+@media only screen and (max-width: 1100px) {
+  .modal-container {
+    width: 65%;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .modal-container {
+    width: 80%;
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  .modal-container {
+    width: 95%;
+  }
+}
+
 /*from parent*/
 .modal-form {
   display: flex;

@@ -1,5 +1,6 @@
 import React, { useCallback } from "react";
 import { GoogleMap, useLoadScript, MarkerF } from "@react-google-maps/api";
+import './Map.css'
 
 const Map = ({ latitude, longitude, mapClick, forSearch }) => {
   const { isLoaded } = useLoadScript({
@@ -17,7 +18,7 @@ const Map = ({ latitude, longitude, mapClick, forSearch }) => {
         <GoogleMap
           zoom={10}
           center={{ lat: latitude, lng: longitude }}
-          mapContainerClassName={forSearch ? "map-container-recherche" : "map-container"}
+          mapContainerClassName={"map-container"}
           onClick={(e) => mapClick(e.latLng.lat(), e.latLng.lng())}
         >
           <MarkerF

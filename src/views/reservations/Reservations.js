@@ -29,7 +29,6 @@ const Reservations = () => {
               { id: "1", title: "Joueur joueur", date: "2022-12-15 21:30:00" },
               { id: "2", title: "Joueur joueur", date: "2022-12-20 08:00:00" },
             ]}
-            //eventContent={renderEventContent}
             headerToolbar={{
               left: "prev,next today",
               center: "title",

@@ -1,33 +1,68 @@
-.terrains-prop{
-    padding: 50px;
+.terrains-prop {
+  padding: 50px;
 }
 
-.terrains-header{
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 40px;
+.terrains-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
 }
 
-.terrainList-recherche{
-    width: 20%;
-    outline: none;
-    border: none;
-    padding: 5px;
-    border-radius: 2px;
+.terrainList-recherche {
+  width: 20%;
+  outline: none;
+  border: none;
+  padding: 5px;
+  border-radius: 2px;
 }
 
-.terrains-ajout-btn{
-    padding: 8px 30px;
-    font-size: 16px;
+.terrains-ajout-btn {
+  padding: 8px 30px;
+  font-size: 16px;
 }
 
-.terrain-liste{
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 15px;
+.terrain-liste {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 15px;
 }
 
-.map-container{
-    width: 100%;
-    height: 500px;
+
+
+@media only screen and (max-width: 1000px) {
+  .terrain-liste {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media only screen and (max-width: 750px) {
+  .terrains-prop {
+    padding: 20px;
+  }
+  .terrainList-recherche {
+    width: 30%;
+  }
+  .terrain-liste {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  .terrains-prop {
+    padding: 10px;
+  }
+  .terrains-header {
+    margin-bottom: 20px;
+  }
+  .terrainList-recherche {
+    width: 55%;
+    padding: 1px;
+  }
+  .terrains-ajout-btn {
+    padding: 6px 20px;
+    font-size: 12px;
+  }
+  .terrain-liste {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
