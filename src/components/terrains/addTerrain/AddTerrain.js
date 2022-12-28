@@ -1,5 +1,6 @@
 import React from "react";
 import CostumSwitch from "../../../utils/switch/CustomSwitch";
+import './AddTerrain.css'
 
 const AddTerrain = ({ terrain, setImages, setTerrain }) => {
 

@@ -1,14 +1,12 @@
 import React from "react";
 import "./Confirm.css";
 
-const Confirm = ({ setShowConfirm, confirmClick }) => {
+const Confirm = ({ title, parag, setShowConfirm, confirmClick }) => {
   return (
     <div className="confirm-background">
       <div className="confirm-container">
-        <h2 className="confirm-title">Vous êtes sur?</h2>
-        <p className="confirm-parag">
-          Si vous confirmez vous ne pouvez revenir en arrière
-        </p>
+        <h2 className="confirm-title">{title}</h2>
+        <p className="confirm-parag">{parag}</p>
         <div className="confirm-buttons">
           <button
             className="confirm-button confirm-btn-annuler"
@@ -16,7 +14,10 @@ const Confirm = ({ setShowConfirm, confirmClick }) => {
           >
             Annuler
           </button>
-          <button className="confirm-button confirm-btn-confirmer" onClick={()=>confirmClick()}>
+          <button
+            className="confirm-button confirm-btn-confirmer"
+            onClick={() => confirmClick()}
+          >
             Confirmer
           </button>
         </div>

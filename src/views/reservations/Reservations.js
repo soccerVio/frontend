@@ -5,18 +5,18 @@ import "./Reservations.css";
 import Confirm from "../../utils/confirm/Confirm";
 
 const Reservations = () => {
-    const [showConfirm, setShowConfirm] = useState(false)
+  const [showConfirm, setShowConfirm] = useState(false);
   let idReservation = 0;
 
   const eventClick = useCallback((info) => {
     idReservation = info.event.id;
-    setShowConfirm(true)
+    setShowConfirm(true);
   }, []);
 
-  const annulerReservation = useCallback(()=>{
+  const annulerReservation = useCallback(() => {
     console.log(idReservation);
-    setShowConfirm(false)
-  },[])
+    setShowConfirm(false);
+  }, []);
 
   return (
     <>
@@ -46,12 +46,19 @@ const Reservations = () => {
               minute: "2-digit",
               hour12: false,
             }}
-            locale= 'fr'
+            locale="fr"
             eventClick={eventClick}
           />
         </div>
       </div>
-      {showConfirm && <Confirm setShowConfirm={setShowConfirm} confirmClick={annulerReservation} />}
+      {showConfirm && (
+        <Confirm
+          setShowConfirm={setShowConfirm}
+          confirmClick={annulerReservation}
+          title="Vous êtes sur?"
+          parag="Si vous annuler la réservation vous ne pouvez revenir en arrière"
+        />
+      )}
     </>
   );
 };

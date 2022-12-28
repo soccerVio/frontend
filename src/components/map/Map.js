@@ -18,7 +18,7 @@ const Map = ({ latitude, longitude, mapClick, forSearch }) => {
         <GoogleMap
           zoom={10}
           center={{ lat: latitude, lng: longitude }}
-          mapContainerClassName={"map-container"}
+          mapContainerClassName={forSearch ? "map-recherche-container" : "map-container"}
           onClick={(e) => mapClick(e.latLng.lat(), e.latLng.lng())}
         >
           <MarkerF

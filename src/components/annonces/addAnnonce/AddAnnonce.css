@@ -1,0 +1,17 @@
+.add-annonce{
+    padding: 10px;
+}
+
+.add-annonce-label{
+    display: block;
+    margin-bottom: 10px;
+}
+
+.add-annonce-desc{
+    width: 100%;
+    height: 100px;
+    resize: vertical;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #999;
+}

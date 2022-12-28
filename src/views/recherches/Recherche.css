@@ -32,6 +32,11 @@
     height: 35px;
 }
 
+.map-recherche-container{
+    width: 100%;
+    height: 0;
+    padding-bottom: 100%;
+}
 @media only screen and (max-width: 1000px) {
     .recherche{
         padding: 20px;

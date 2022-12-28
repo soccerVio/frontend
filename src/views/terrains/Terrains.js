@@ -88,12 +88,11 @@ const Terrains = () => {
         let response = await axios.get(
           `${backend_url}/search/${e.target.value}`
         );
-        setTerrains(response.data)
+        setTerrains(response.data);
       } catch (error) {
         console.log(error);
       }
-    }else
-      getTerrains();
+    } else getTerrains();
   }, []);
 
   return (
@@ -168,6 +167,8 @@ const Terrains = () => {
           />
         </Modal>
       )}
+
+      
       <ToastContainer />
     </>
   );
