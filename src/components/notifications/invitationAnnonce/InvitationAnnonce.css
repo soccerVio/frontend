@@ -1,14 +1,14 @@
-.invitations {
-  min-width: 30%;
-}
-
-.invitations {
+.invitations-annonces {
   border-radius: var(--borderRadius);
   border: 1px solid #888;
   height: fit-content;
 }
 
-.invitations-title {
+.invitations{
+  margin-bottom: 20px;
+}
+
+.invitations-annonces-title {
   text-align: center;
   background-color: #0a1814;
   padding: 17px 20px;
@@ -17,76 +17,76 @@
   border-radius: var(--borderRadius) var(--borderRadius) 0 0;
 }
 
-.invitations-content {
+.invitations-annonces-content {
   background-color: #0e1d19;
 }
 
-.invitations-content:last-child {
+.invitations-annonces-content:last-child {
   border-radius: 0 0 var(--borderRadius) var(--borderRadius);
 }
 
-.invitation {
+.invitation-annonce {
   padding: 10px 20px;
 }
 
-.invitation:hover > * {
+.invitation-annonce:hover > * {
   scale: 1.05;
   transition: 0.5s;
 }
 
-.invitation,
-.invitation-userInfos {
+.invitation-annonce,
+.invitation-annonce-userInfos {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.invitation-userInfos {
+.invitation-annonce-userInfos {
   cursor: pointer;
 }
 
-.invitation-userImage {
+.invitation-annonce-userImage {
   width: 35px;
   aspect-ratio: 1/1;
   border-radius: 50%;
   margin-right: 10px;
 }
 
-.invitation-userName {
+.invitation-annonce-userName {
   position: relative;
   bottom: 3px;
 }
 
-.invitation-icon {
+.invitation-annonce-icon {
   font-size: 27px;
   cursor: pointer;
   border-radius: 50%;
 }
 
-.invitation-icon-accept {
+.invitation-annonce-icon-accept {
   margin-right: 10px;
   color: #02bd5a;
 }
 
-.invitation-icon-accept:hover {
+.invitation-annonce-icon-accept:hover {
   background-color: #02bd5a;
 }
 
-.invitation-icon-refuse {
+.invitation-annonce-icon-refuse {
   color: #ff3030;
 }
 
-.invitation-icon-refuse:hover {
+.invitation-annonce-icon-refuse:hover {
   background-color: #ff3030;
 }
 
-.invitation-icon-accept:hover,
-.invitation-icon-refuse:hover {
+.invitation-annonce-icon-accept:hover,
+.invitation-annonce-icon-refuse:hover {
   color: #fff;
   transition: 0.5s;
 }
 
-.invitation-view {
+.invitation-annonce-view {
   color: #6565ff;
   font-size: 13px;
   cursor: pointer;
@@ -94,6 +94,6 @@
   bottom: 1px;
 }
 
-.invitation-view:hover {
+.invitation-annonce-view:hover {
   text-decoration: underline;
 }

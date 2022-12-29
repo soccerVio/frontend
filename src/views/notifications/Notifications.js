@@ -1,5 +1,5 @@
 import React from "react";
-import Invitation from "../../components/notifications/invitation/Invitation";
+import InvitationAnnonce from "../../components/notifications/invitationAnnonce/InvitationAnnonce";
 import Notification from "../../components/notifications/notification/Notification";
 import "./Notifications.css";
 
@@ -8,7 +8,11 @@ const Notifications = () => {
   return (
     <div className="notifications-container">
       <Notification />
-      <Invitation />
+      <div className="invit-annonces">
+        <InvitationAnnonce itsInvitation/>
+        <InvitationAnnonce />
+      </div>
+      
     </div>
   );
 };

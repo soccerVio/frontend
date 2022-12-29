@@ -2,7 +2,13 @@ import React from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import "./Modal.css";
 
-const Modal = ({ openModal, title, children, onEnregistClick }) => {
+const Modal = ({
+  openModal,
+  title,
+  children,
+  onEnregistClick,
+  showRegisterBtn,
+}) => {
   return (
     <div className="modal-background">
       <div className="modal-container">
@@ -23,9 +29,14 @@ const Modal = ({ openModal, title, children, onEnregistClick }) => {
           >
             Annuler
           </button>
-          <button className="modal-btn-enregistrer modal-btn" onClick={onEnregistClick}>
-            Enregistrer
-          </button>
+          {showRegisterBtn && (
+            <button
+              className="modal-btn-enregistrer modal-btn"
+              onClick={onEnregistClick}
+            >
+              Enregistrer
+            </button>
+          )}
         </div>
       </div>
     </div>

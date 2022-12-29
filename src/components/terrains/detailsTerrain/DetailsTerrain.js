@@ -229,6 +229,7 @@ const DetailsTerrain = () => {
           openModal={setShowModal}
           title="La modification du terrain"
           onEnregistClick={updateTerrain}
+          showRegisterBtn
         >
           <AddTerrain
             terrain={terrain}
@@ -242,6 +243,7 @@ const DetailsTerrain = () => {
           openModal={setShowModalAddReserv}
           title="Les informations du reservation"
           onEnregistClick={reservTerrain}
+          showRegisterBtn
         >
           <AddReservation
             reservation={reservation}
@@ -254,6 +256,7 @@ const DetailsTerrain = () => {
           openModal={setShowModalAnnonce}
           title="La description de l'annnoce"
           onEnregistClick={ajoutAnnonce}
+          showRegisterBtn
         >
           <AddAnnonce
             descriptionAnnnoce={descriptionAnnnoce}

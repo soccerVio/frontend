@@ -1,0 +1,62 @@
+.add-invit-input{
+    position: relative;
+    width: 50%;
+    margin: auto;
+}
+
+.add-invit-input-nomJoueur{
+    width: 100%;
+    padding: 4px;
+    display: block;
+    border: none;
+    border-bottom: 1px solid #999;
+    outline: none;
+}
+
+.add-invit-joueurs{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    background: #fff;
+    border: 1px solid #999;
+    top: 30px;
+    width: 70%;
+    border-radius: 5px;
+    left: 15%;
+    padding: 5px;
+    text-align: center;
+}
+
+.add-invit-nomJoueur{
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.add-invit-nomJoueur:hover{
+    background-color: rgb(207, 207, 207);
+    transition: 0.3s;
+}
+
+.add-invit-selectedJoueurs{
+    width: 70%;
+    border: 1px solid #999;
+    border-radius: 5px;
+    margin: 10px auto;
+    padding: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.add-invit-selectedJoueur{
+    background-color: #d9d9d9;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: default;
+}
+
+.add-invit-selectedJoueur:hover{
+    background-color: #b9b9b9;
+    transition: 0.5s;
+}

@@ -9,7 +9,11 @@
   column-gap: 50px;
 }
 
-
+.invit-annonces{
+  min-width: 30%;
+  display: grid;
+  row-gap: 15px;
+}
 @media only screen and (max-width: 1100px) {
 
 }
