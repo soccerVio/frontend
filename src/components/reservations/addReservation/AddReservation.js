@@ -1,6 +1,5 @@
 import axios from "axios";
-import React, { useCallback } from "react";
-import { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { customTime } from "../../../utils/functions/Function";
 import "./AddReservation.css";
 
@@ -123,15 +122,15 @@ const AddReservation = ({ reservation, setReservation, terrain }) => {
         <div className="add-reservation-list-joueurs">
           {joueurs.map((joueur, index) => (
             <span
-              key={index}
+              key={joueur.id}
               className="add-reservation-joueur"
               onClick={() => {
                 joueurs.splice(index, 1)
                 reservation.idJoueurs.splice(index, 1)
-                setJoueurs(joueurs)
+                setJoueurs([...joueurs])
                 setReservation({
                   ...reservation,
-                  idJoueurs: reservation.idJoueurs,
+                  idJoueurs: [...reservation.idJoueurs],
                 })
               }}
             >
