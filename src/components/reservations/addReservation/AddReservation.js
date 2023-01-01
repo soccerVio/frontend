@@ -1,11 +1,14 @@
 import axios from "axios";
 import React, { useCallback } from "react";
 import { useState } from "react";
+import { customTime } from "../../../utils/functions/Function";
 import "./AddReservation.css";
 
-const AddReservation = ({ reservation, setReservation }) => {
+const AddReservation = ({ reservation, setReservation, terrain }) => {
   const [nomJoueur, setNomJoueur] = useState("");
   const [selectedJoueurs, setSelectedJoueurs] = useState([]);
+  const [joueurs, setJoueurs] = useState([]);
+  const [heuresDispo, setHeuresDispo] = useState([]);
 
   const getUsers = useCallback(async (nomJoueur) => {
     setNomJoueur(nomJoueur);
@@ -21,6 +24,25 @@ const AddReservation = ({ reservation, setReservation }) => {
     } else setSelectedJoueurs([]);
   }, []);
 
+  const getReservations = useCallback(async (e) => {
+    setReservation({ ...reservation, date: new Date(e.target.value)});
+    try {
+      let response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_RESERVATIONS_URL}/${new Date(
+          e.target.value
+        )}/${terrain.id}`
+      );
+      setHeuresDispo(response.data);
+    } catch (error) {}
+  }, [reservation, setReservation, terrain.id]);
+
+  const heurePlusOne = useCallback((heure) => {
+    let time = new Date("1970-01-01T" + heure);
+    if (time.getMinutes() > 9)
+      return `${time.getHours() + 1}:${time.getMinutes()}`;
+    return `${time.getHours() + 1}:0${time.getMinutes()}`;
+  }, []);
+
   return (
     <div className="add-reservation">
       <div className="add-reservation-infos">
@@ -30,16 +52,16 @@ const AddReservation = ({ reservation, setReservation }) => {
             type="radio"
             name="genre"
             className="add-reservation-genreH"
-            value="homme"
-            onChange={() => setReservation({ ...reservation, genre: "homme" })}
+            value="hommes"
+            onChange={() => setReservation({ ...reservation, genre: "hommes" })}
           />{" "}
           Hommes
           <input
             type="radio"
             name="genre"
             className="add-reservation-genreF"
-            value="femme"
-            onChange={() => setReservation({ ...reservation, genre: "femme" })}
+            value="femmes"
+            onChange={() => setReservation({ ...reservation, genre: "femmes" })}
           />{" "}
           Femmes
         </div>
@@ -53,7 +75,10 @@ const AddReservation = ({ reservation, setReservation }) => {
             min="0"
             className="add-reservation-input"
             onChange={(e) =>
-              setReservation({ ...reservation, nbrJoueurManq: parseInt(e.target.value) })
+              setReservation({
+                ...reservation,
+                nbrJoueurManq: parseInt(e.target.value),
+              })
             }
           />
         </div>
@@ -73,19 +98,20 @@ const AddReservation = ({ reservation, setReservation }) => {
 
           {selectedJoueurs.length !== 0 && (
             <div className="list-joueurs">
-              {selectedJoueurs.map((nomJoueur) => (
+              {selectedJoueurs.map((selectedJoueur) => (
                 <span
-                  key={nomJoueur.id}
+                  key={selectedJoueur.id}
                   onClick={() => {
                     setReservation({
                       ...reservation,
-                      joueurs: [...reservation.joueurs, nomJoueur],
+                      idJoueurs: [...reservation.idJoueurs, selectedJoueur.id],
                     });
+                    setJoueurs([...joueurs, selectedJoueur])
                     setNomJoueur("");
                     setSelectedJoueurs([]);
                   }}
                 >
-                  {nomJoueur.nomComplet}
+                  {selectedJoueur.nomComplet}
                 </span>
               ))}
             </div>
@@ -93,13 +119,21 @@ const AddReservation = ({ reservation, setReservation }) => {
         </div>
       </div>
 
-      {reservation.joueurs.length !== 0 && (
+      {joueurs.length !== 0 && (
         <div className="add-reservation-list-joueurs">
-          {reservation.joueurs.map((joueur, index) => (
+          {joueurs.map((joueur, index) => (
             <span
               key={index}
               className="add-reservation-joueur"
-              onClick={() => delete reservation.joueurs[index]}
+              onClick={() => {
+                joueurs.splice(index, 1)
+                reservation.idJoueurs.splice(index, 1)
+                setJoueurs(joueurs)
+                setReservation({
+                  ...reservation,
+                  idJoueurs: reservation.idJoueurs,
+                })
+              }}
             >
               {joueur.nomComplet}
             </span>
@@ -112,24 +146,21 @@ const AddReservation = ({ reservation, setReservation }) => {
           type="date"
           className=" add-reservation-input add-reservation-date-input"
           value={reservation.date}
-          onChange={(e) =>
-            setReservation({ ...reservation, date: e.target.value })
-          }
+          onChange={getReservations}
         />
       </div>
 
       {reservation.date && (
         <div className="add-reservation-heuresDispo">
-          <span className="add-reservation-heure">08:00 - 09:00</span>
-          <span className="add-reservation-heure">08:00 - 09:00</span>
-          <span className="add-reservation-heure">08:00 - 09:00</span>
-          <span className="add-reservation-heure">08:00 - 09:00</span>
-          <span className="add-reservation-heure">08:00 - 09:00</span>
-          <span className="add-reservation-heure">08:00 - 09:00</span>
-          <span className="add-reservation-heure">08:00 - 09:00</span>
-          <span className="add-reservation-heure">08:00 - 09:00</span>
-          <span className="add-reservation-heure">08:00 - 09:00</span>
-          <span className="add-reservation-heure">08:00 - 09:00</span>
+          {heuresDispo.map((heure) => (
+            <span
+              className="add-reservation-heure"
+              key={heure}
+              onClick={()=>setReservation({...reservation, heure})}
+            >
+              {customTime(heure) + " - " + heurePlusOne(heure)}
+            </span>
+          ))}
         </div>
       )}
     </div>

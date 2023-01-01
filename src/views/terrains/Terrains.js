@@ -29,7 +29,7 @@ const Terrains = () => {
     description: "",
     heureF: "",
     prixHr: 0,
-    nbrJoueur: 0,
+    nbrJoueur: 5,
     avecDouche: false,
     assure: false,
     proprietaire: userInfo().id,
@@ -146,6 +146,7 @@ const Terrains = () => {
             setOpenModalMap(false);
             setOpenModalTerrainForm(true);
           }}
+          showRegisterBtn
         >
           <Map
             latitude={terrain.latitude}
@@ -159,6 +160,7 @@ const Terrains = () => {
           openModal={setOpenModalTerrainForm}
           title="Les informations du terrain"
           onEnregistClick={enregistrerTerrain}
+          showRegisterBtn
         >
           <AddTerrain
             terrain={terrain}

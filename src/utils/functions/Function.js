@@ -5,3 +5,8 @@ export function verifyObjectFieldsNotNull(object){
     }
     return true;
 }
+
+export function customTime(time) {
+    const times = time.split(":");
+    return `${times[0]}:${times[1]}`;
+}

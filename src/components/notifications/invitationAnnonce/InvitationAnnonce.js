@@ -3,8 +3,8 @@ import { TbCircleCheck, TbCircleX } from "react-icons/tb";
 import "./InvitationAnnonce.css";
 
 const InvitationAnnonce = ({ itsInvitation }) => {
-  //const [showInvitation, setSowInvitation] = useState(false)
-  //const [show, setSowInvitation] = useState(false)
+  const [showReservation, setSowReservation] = useState(false);
+  const [showAnnnoce, setSowAnnnoce] = useState(false);
 
   function AnnonceInvitComponent() {
     return (
@@ -23,26 +23,29 @@ const InvitationAnnonce = ({ itsInvitation }) => {
         </div>
 
         <span className="invitation-annonce-view">
-          Voir {itsInvitation ? " invitation" : " annonce"}
+          Voir {itsInvitation ? " réservation" : " annonce"}
         </span>
       </div>
     );
   }
 
   return (
-    <div className="invitations-annonces">
-      <div className="invitations-annonces-title">
-        {itsInvitation
-          ? " Invitations pour des matches"
-          : " Réponses des annonces"}
+    <>
+      <div className="invitations-annonces">
+        <div className="invitations-annonces-title">
+          {itsInvitation
+            ? " Invitations pour des matches"
+            : " Réponses des annonces"}
+        </div>
+        <div className="invitations-annonces-content">
+          <AnnonceInvitComponent />
+          <AnnonceInvitComponent />
+          <AnnonceInvitComponent />
+          <AnnonceInvitComponent />
+        </div>
       </div>
-      <div className="invitations-annonces-content">
-        <AnnonceInvitComponent />
-        <AnnonceInvitComponent />
-        <AnnonceInvitComponent />
-        <AnnonceInvitComponent />
-      </div>
-    </div>
+      {showAnnnoce}
+    </>
   );
 };
 

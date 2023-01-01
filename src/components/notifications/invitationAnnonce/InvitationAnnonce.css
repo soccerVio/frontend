@@ -41,6 +41,10 @@
   justify-content: space-between;
 }
 
+.invitation-annonce-userInfos:hover .invitation-annonce-userName{
+  text-decoration: underline;
+}
+
 .invitation-annonce-userInfos {
   cursor: pointer;
 }

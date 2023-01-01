@@ -119,3 +119,17 @@
     cursor: pointer;
     color: #fff;
 }
+
+.add-reservation-heure:hover{
+    background-color: #02612e;
+    transition: 0.5s;
+}
+
+.add-reservation-heure.active{
+    background-color: #7a7a7a;
+}
+
+.add-reservation-heure.active:hover{
+    background-color: #3a3a3a;
+    transition: 0.5s;
+}
