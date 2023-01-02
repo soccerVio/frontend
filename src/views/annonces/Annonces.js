@@ -16,7 +16,6 @@ const Annonces = () => {
   const [annonceId, setAnnonceId] = useState([]);
   const navigate = useNavigate();
 
-  const backed_url = process.env.REACT_APP_BACKEND_ANNONCES_URL;
   const userId = userInfo().id;
 
   const addInvitation = useCallback(async () => {
@@ -39,7 +38,7 @@ const Annonces = () => {
 
   const getAnnonces = useCallback(async () => {
     try {
-      let response = await axios.get(`${backed_url}`);
+      let response = await axios.get(`${process.env.REACT_APP_BACKEND_ANNONCES_URL}`);
       if (response.data.length > 0) setAnnonces(response.data);
       else getWaringToast("Il n ya aucune annonce!");
     } catch (error) {
@@ -49,7 +48,7 @@ const Annonces = () => {
 
   const participer = useCallback(async (idAnnonce) => {
     try {
-      await axios.put(`${backed_url}/participer/${userId}/${idAnnonce}`);
+      await axios.put(`${process.env.REACT_APP_BACKEND_ANNONCES_URL}/participer/${userId}/${idAnnonce}`);
       getSuccessToast("Participation ajouté avec succès");
     } catch (error) {
       console.log(error);
@@ -79,6 +78,7 @@ const Annonces = () => {
           </span>
         </div>
         <p className="annonce-description">{annonce.description}</p>
+        <span>Match pour les  a{annonce.reservation.genre}</span>
         <span>
           Date de réservation : {annonce.reservation.date.split("T")[0]} à{" "}
           {customTime(annonce.reservation.heure)}

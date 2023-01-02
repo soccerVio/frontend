@@ -1,0 +1,28 @@
+.notif-reservations{
+    color: #000;
+}
+
+.notif-reservations{
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+}
+
+.notif-reservations-title{
+    font-weight: bold;
+}
+
+.notif-reservations-link{
+    cursor: pointer;
+    color: rgb(20, 73, 122);
+}
+
+.notif-reservations-link:hover{
+    text-decoration: underline;
+}
+
+.notif-reservations-joueur{
+    display: block;
+    margin: 5px 30px;
+    width: fit-content;
+}

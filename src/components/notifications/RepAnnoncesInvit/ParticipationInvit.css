@@ -1,4 +1,4 @@
-.invitations-annonces {
+.invitations-participations {
   border-radius: var(--borderRadius);
   border: 1px solid #888;
   height: fit-content;
@@ -8,7 +8,7 @@
   margin-bottom: 20px;
 }
 
-.invitations-annonces-title {
+.invitations-participations-title {
   text-align: center;
   background-color: #0a1814;
   padding: 17px 20px;
@@ -17,80 +17,80 @@
   border-radius: var(--borderRadius) var(--borderRadius) 0 0;
 }
 
-.invitations-annonces-content {
+.invitations-participations-content {
   background-color: #0e1d19;
 }
 
-.invitations-annonces-content:last-child {
+.invitations-participations-content:last-child {
   border-radius: 0 0 var(--borderRadius) var(--borderRadius);
 }
 
-.invitation-annonce {
+.invitation-participation {
   padding: 10px 20px;
 }
 
-.invitation-annonce:hover > * {
+.invitation-participation:hover > * {
   scale: 1.05;
   transition: 0.5s;
 }
 
-.invitation-annonce,
-.invitation-annonce-userInfos {
+.invitation-participation,
+.invitation-participation-userInfos {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.invitation-annonce-userInfos:hover .invitation-annonce-userName{
+.invitation-participation-userInfos:hover .invitation-participation-userName{
   text-decoration: underline;
 }
 
-.invitation-annonce-userInfos {
+.invitation-participation-userInfos {
   cursor: pointer;
 }
 
-.invitation-annonce-userImage {
+.invitation-participation-userImage {
   width: 35px;
   aspect-ratio: 1/1;
   border-radius: 50%;
   margin-right: 10px;
 }
 
-.invitation-annonce-userName {
+.invitation-participation-userName {
   position: relative;
   bottom: 3px;
 }
 
-.invitation-annonce-icon {
+.invitation-participation-icon {
   font-size: 27px;
   cursor: pointer;
   border-radius: 50%;
 }
 
-.invitation-annonce-icon-accept {
+.invitation-participation-icon-accept {
   margin-right: 10px;
   color: #02bd5a;
 }
 
-.invitation-annonce-icon-accept:hover {
+.invitation-participation-icon-accept:hover {
   background-color: #02bd5a;
 }
 
-.invitation-annonce-icon-refuse {
+.invitation-participation-icon-refuse {
   color: #ff3030;
 }
 
-.invitation-annonce-icon-refuse:hover {
+.invitation-participation-icon-refuse:hover {
   background-color: #ff3030;
 }
 
-.invitation-annonce-icon-accept:hover,
-.invitation-annonce-icon-refuse:hover {
+.invitation-participation-icon-accept:hover,
+.invitation-participation-icon-refuse:hover {
   color: #fff;
   transition: 0.5s;
 }
 
-.invitation-annonce-view {
+.invitation-participation-view {
   color: #6565ff;
   font-size: 13px;
   cursor: pointer;
@@ -98,6 +98,6 @@
   bottom: 1px;
 }
 
-.invitation-annonce-view:hover {
+.invitation-participation-view:hover {
   text-decoration: underline;
 }
