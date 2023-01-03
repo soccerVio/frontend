@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useCallback, useState } from "react";
+import { userInfo } from "../../../constants/user";
 import { customTime } from "../../../utils/functions/Function";
 import "./AddReservation.css";
 
@@ -24,7 +25,7 @@ const AddReservation = ({ reservation, setReservation, terrain }) => {
   }, []);
 
   const getReservations = useCallback(async (e) => {
-    setReservation({ ...reservation, date: new Date(e.target.value)});
+    setReservation({ ...reservation, date: e.target.value});
     try {
       let response = await axios.get(
         `${process.env.REACT_APP_BACKEND_RESERVATIONS_URL}/${new Date(
@@ -87,6 +88,7 @@ const AddReservation = ({ reservation, setReservation, terrain }) => {
             <label className="add-reservation-label">Les joueurs</label>
             <input
               type="text"
+              autoComplete="off"
               name="nom-joueur"
               className="add-reservation-input"
               placeholder="Nom complet"
@@ -97,7 +99,10 @@ const AddReservation = ({ reservation, setReservation, terrain }) => {
 
           {selectedJoueurs.length !== 0 && (
             <div className="list-joueurs">
-              {selectedJoueurs.map((selectedJoueur) => (
+              {selectedJoueurs
+              .filter(selectedJoueur => (selectedJoueur.id !== userInfo().id 
+                                        && !reservation.idJoueurs.includes(selectedJoueur.id)))
+              .map((selectedJoueur) => (
                 <span
                   key={selectedJoueur.id}
                   onClick={() => {
@@ -144,6 +149,7 @@ const AddReservation = ({ reservation, setReservation, terrain }) => {
         <input
           type="date"
           className=" add-reservation-input add-reservation-date-input"
+          min={new Date().toISOString().split("T")[0]}
           value={reservation.date}
           onChange={getReservations}
         />

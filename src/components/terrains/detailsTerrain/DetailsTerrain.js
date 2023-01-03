@@ -66,7 +66,20 @@ const DetailsTerrain = () => {
   }, []);
 
   const reservTerrain = useCallback(async () => {
-    try {
+    if(reservation.date !== '' && reservation.heure !== '' && reservation.genre !== ''){
+      if(reservation.nbrJoueurManq < 0)
+        getErrorToast('nbrJoueurManq < 0')
+      else{ 
+        if((reservation.idJoueurs.length + reservation.nbrJoueurManq) > (terrain.nbrJoueur * 2))
+          getErrorToast('nbrJoueurMax est ' + (terrain.nbrJoueur * 2))
+        else
+          getSuccessToast('success')
+      }
+       
+    }
+    else  
+      getErrorToast('reservation = 0 ')
+    /*try {
       let response = await axios.post(
         `${process.env.REACT_APP_BACKEND_RESERVATIONS_URL}/add`,
         reservation
@@ -77,7 +90,7 @@ const DetailsTerrain = () => {
       if (reservation.nbrJoueurManq > 0) setShowConfirmAnnonce(true);
     } catch (error) {
       console.log(error);
-    }
+    }*/
   }, [reservation]);
 
   const updateTerrain = useCallback(async () => {
