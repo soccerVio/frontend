@@ -88,7 +88,7 @@ const DetailsTerrain = () => {
         formData.append("images", images[i]);
     }
     try {
-      await axios.put(
+      let response = await axios.put(
         `${process.env.REACT_APP_BACKEND_TERRAINS_URL}/update`,
         formData,
         {
@@ -99,6 +99,7 @@ const DetailsTerrain = () => {
       );
       setShowModal(false);
       getSuccessToast("Terrain modifié avec succès");
+      setTerrain(response.data)
     } catch (error) {
       console.log(error);
     }
