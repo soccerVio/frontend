@@ -9,6 +9,7 @@ const AddReservation = ({ reservation, setReservation, terrain }) => {
   const [selectedJoueurs, setSelectedJoueurs] = useState([]);
   const [joueurs, setJoueurs] = useState([]);
   const [heuresDispo, setHeuresDispo] = useState([]);
+  const [idxSelectedHr, setIdxSelectedHr] = useState(-1);
 
   const getUsers = useCallback(async (nomJoueur) => {
     setNomJoueur(nomJoueur);
@@ -24,23 +25,30 @@ const AddReservation = ({ reservation, setReservation, terrain }) => {
     } else setSelectedJoueurs([]);
   }, []);
 
-  const getReservations = useCallback(async (e) => {
-    setReservation({ ...reservation, date: e.target.value});
-    try {
-      let response = await axios.get(
-        `${process.env.REACT_APP_BACKEND_RESERVATIONS_URL}/${new Date(
-          e.target.value
-        )}/${terrain.id}`
-      );
-      setHeuresDispo(response.data);
-    } catch (error) {}
-  }, [reservation, setReservation, terrain.id]);
+  const getReservations = useCallback(
+    async (e) => {
+      setReservation({ ...reservation, date: e.target.value });
+      try {
+        let response = await axios.get(
+          `${process.env.REACT_APP_BACKEND_RESERVATIONS_URL}/${new Date(
+            e.target.value
+          )}/${terrain.id}`
+        );
+        setHeuresDispo(response.data);
+      } catch (error) {}
+    },
+    [reservation, setReservation, terrain.id]
+  );
 
   const heurePlusOne = useCallback((heure) => {
     let time = new Date("1970-01-01T" + heure);
-    if (time.getMinutes() > 9)
-      return `${time.getHours() + 1}:${time.getMinutes()}`;
-    return `${time.getHours() + 1}:0${time.getMinutes()}`;
+    let min =
+      time.getMinutes() > 9 ? time.getMinutes() : "0" + time.getMinutes();
+    let hr =
+      time.getHours() + 1 > 9
+        ? time.getHours() + 1
+        : "0" + (time.getHours() + 1);
+    return `${hr}:${min}`;
   }, []);
 
   return (
@@ -100,24 +108,30 @@ const AddReservation = ({ reservation, setReservation, terrain }) => {
           {selectedJoueurs.length !== 0 && (
             <div className="list-joueurs">
               {selectedJoueurs
-              .filter(selectedJoueur => (selectedJoueur.id !== userInfo().id 
-                                        && !reservation.idJoueurs.includes(selectedJoueur.id)))
-              .map((selectedJoueur) => (
-                <span
-                  key={selectedJoueur.id}
-                  onClick={() => {
-                    setReservation({
-                      ...reservation,
-                      idJoueurs: [...reservation.idJoueurs, selectedJoueur.id],
-                    });
-                    setJoueurs([...joueurs, selectedJoueur])
-                    setNomJoueur("");
-                    setSelectedJoueurs([]);
-                  }}
-                >
-                  {selectedJoueur.nomComplet}
-                </span>
-              ))}
+                .filter(
+                  (selectedJoueur) =>
+                    selectedJoueur.id !== userInfo().id &&
+                    !reservation.idJoueurs.includes(selectedJoueur.id)
+                )
+                .map((selectedJoueur) => (
+                  <span
+                    key={selectedJoueur.id}
+                    onClick={() => {
+                      setReservation({
+                        ...reservation,
+                        idJoueurs: [
+                          ...reservation.idJoueurs,
+                          selectedJoueur.id,
+                        ],
+                      });
+                      setJoueurs([...joueurs, selectedJoueur]);
+                      setNomJoueur("");
+                      setSelectedJoueurs([]);
+                    }}
+                  >
+                    {selectedJoueur.nomComplet}
+                  </span>
+                ))}
             </div>
           )}
         </div>
@@ -130,13 +144,13 @@ const AddReservation = ({ reservation, setReservation, terrain }) => {
               key={joueur.id}
               className="add-reservation-joueur"
               onClick={() => {
-                joueurs.splice(index, 1)
-                reservation.idJoueurs.splice(index, 1)
-                setJoueurs([...joueurs])
+                joueurs.splice(index, 1);
+                reservation.idJoueurs.splice(index, 1);
+                setJoueurs([...joueurs]);
                 setReservation({
                   ...reservation,
                   idJoueurs: [...reservation.idJoueurs],
-                })
+                });
               }}
             >
               {joueur.nomComplet}
@@ -157,13 +171,25 @@ const AddReservation = ({ reservation, setReservation, terrain }) => {
 
       {reservation.date && (
         <div className="add-reservation-heuresDispo">
-          {heuresDispo.map((heure) => (
+          {heuresDispo.map((heure, idx) => (
             <span
-              className="add-reservation-heure"
+              className={
+                idx === idxSelectedHr
+                  ? "add-reservation-heure active"
+                  : "add-reservation-heure"
+              }
               key={heure}
-              onClick={()=>setReservation({...reservation, heure})}
+              onClick={() => {
+                if (heure !== reservation.heure) {
+                  setReservation({ ...reservation, heure });
+                  setIdxSelectedHr(idx);
+                } else {
+                  setIdxSelectedHr(-1);
+                  setReservation({ ...reservation, heure: "" });
+                }
+              }}
             >
-              {customTime(heure) + " - " + heurePlusOne(heure)}
+              {customTime(heure) + " - " + customTime(heurePlusOne(heure))}
             </span>
           ))}
         </div>

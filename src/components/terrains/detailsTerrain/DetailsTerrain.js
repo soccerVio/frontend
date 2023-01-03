@@ -66,32 +66,39 @@ const DetailsTerrain = () => {
   }, []);
 
   const reservTerrain = useCallback(async () => {
-    if(reservation.date !== '' && reservation.heure !== '' && reservation.genre !== ''){
-      if(reservation.nbrJoueurManq < 0)
-        getErrorToast('nbrJoueurManq < 0')
-      else{ 
-        if((reservation.idJoueurs.length + reservation.nbrJoueurManq) > (terrain.nbrJoueur * 2))
-          getErrorToast('nbrJoueurMax est ' + (terrain.nbrJoueur * 2))
-        else
-          getSuccessToast('success')
+    if (
+      reservation.date !== "" &&
+      reservation.heure !== "" &&
+      reservation.genre !== ""
+    ) {
+      if (reservation.nbrJoueurManq < 0)
+        getErrorToast("Le nombre de joueurs manquant doit etre positive");
+      else {
+        if (
+          reservation.idJoueurs.length + reservation.nbrJoueurManq >
+          terrain.nbrJoueur * 2
+        )
+          getErrorToast("Le nombre de joueurs maximum est " + terrain.nbrJoueur * 2);
+        else {
+          try {
+            let response = await axios.post(
+              `${process.env.REACT_APP_BACKEND_RESERVATIONS_URL}/add`,
+              reservation
+            );
+            getSuccessToast("Réservation ajouté avec succès");
+            setShowModalAddReserv(false);
+            if (reservation.nbrJoueurManq > 0){
+              console.log(response.data);
+              setReservation({...response.data}); 
+              setShowConfirmAnnonce(true);
+            }
+          } catch (error) {
+            console.log(error);
+          }
+        }
       }
-       
-    }
-    else  
-      getErrorToast('reservation = 0 ')
-    /*try {
-      let response = await axios.post(
-        `${process.env.REACT_APP_BACKEND_RESERVATIONS_URL}/add`,
-        reservation
-      );
-      setReservation(response.data);
-      getSuccessToast("Réservation ajouté avec succès");
-      setShowModalAddReserv(false);
-      if (reservation.nbrJoueurManq > 0) setShowConfirmAnnonce(true);
-    } catch (error) {
-      console.log(error);
-    }*/
-  }, [reservation]);
+    } else getErrorToast("Entrez tous les champs!");
+  }, [reservation, terrain]);
 
   const updateTerrain = useCallback(async () => {
     const formData = new FormData();
@@ -112,7 +119,7 @@ const DetailsTerrain = () => {
       );
       setShowModal(false);
       getSuccessToast("Terrain modifié avec succès");
-      setTerrain(response.data)
+      setTerrain(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -129,7 +136,7 @@ const DetailsTerrain = () => {
     } catch (error) {
       console.log(error);
     }
-  }, [descriptionAnnnoce]);
+  }, [descriptionAnnnoce, reservation]);
 
   return (
     <>

@@ -122,14 +122,14 @@
 
 .add-reservation-heure:hover{
     background-color: #02612e;
-    transition: 0.5s;
+    transition: 0.2s;
 }
 
 .add-reservation-heure.active{
-    background-color: #7a7a7a;
+    background-color: #686868;
 }
 
 .add-reservation-heure.active:hover{
-    background-color: #3a3a3a;
-    transition: 0.5s;
+    background-color: rgb(87, 87, 87);
+    transition: 0.2s;
 }

@@ -56,7 +56,6 @@ const Annonces = () => {
   }, []);
 
   function AnnonceComponent({ annonce }) {
-    let id = annonce.reservation.terrain.id;
     return (
       <div className="annonce-component">
         <div className="annonce-userInfos">
@@ -78,7 +77,7 @@ const Annonces = () => {
           </span>
         </div>
         <p className="annonce-description">{annonce.description}</p>
-        <span>Match pour les  a{annonce.reservation.genre}</span>
+        <span>Match pour les {annonce.reservation.genre}</span>
         <span>
           Date de réservation : {annonce.reservation.date.split("T")[0]} à{" "}
           {customTime(annonce.reservation.heure)}
@@ -105,7 +104,7 @@ const Annonces = () => {
           onClick={() =>
             navigate("/terrains/details", {
               state: {
-                id,
+                id: annonce.reservation.terrain.id,
               },
             })
           }
