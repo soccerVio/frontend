@@ -88,7 +88,6 @@ const DetailsTerrain = () => {
             getSuccessToast("Réservation ajouté avec succès");
             setShowModalAddReserv(false);
             if (reservation.nbrJoueurManq > 0){
-              console.log(response.data);
               setReservation({...response.data}); 
               setShowConfirmAnnonce(true);
             }

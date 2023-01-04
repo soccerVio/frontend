@@ -13,6 +13,11 @@
   cursor: pointer;
 
 }
+
+.bg-notReaded{
+  background-color: #1c2e2a;
+}
+
 .notification:hover > * {
   scale: 1.01;
   transition: 0.5s;

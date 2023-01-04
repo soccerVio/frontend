@@ -10,7 +10,8 @@
 }
 
 .invit-annonces{
-  min-width: 30%;
+  height: fit-content;
+  min-width: 40%;
   display: grid;
   row-gap: 15px;
 }

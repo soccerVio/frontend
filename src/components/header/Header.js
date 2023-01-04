@@ -7,8 +7,12 @@ import { TbMapSearch, TbSoccerField } from "react-icons/tb";
 import "./Header.css";
 import { Outlet, useNavigate } from "react-router-dom";
 import { isJoueur, isLogged, userInfo } from "../../constants/user";
+import { useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
 
 const Header = () => {
+  const [notifications, setNotifications] = useState([]);
+
   const refLabel = useRef([]);
   const refIcon = useRef([]);
   const navigate = useNavigate();
@@ -18,12 +22,42 @@ const Header = () => {
 
   useEffect(() => {
     if (!isLogged()) navigate("/");
-    else
+    else {
+      let url =
+        process.env.REACT_APP_BACKEND_BASE_URL +
+        "notifications-push/" +
+        user.id;
+      const es = new EventSource(url);
+
+      es.addEventListener("user-list-event", (event) => {
+        const data = JSON.parse(event.data);
+        if(data.length > 0){
+          setNotifications(data);
+          for(let i=0 ; i<data.length; i++){
+            toast(data[i].content, {
+              position: "top-right",
+              autoClose: 10000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+          }
+        }
+      });
+      es.onerror = () => {
+        es.close();
+      };
       for (let i = 0; i < refIcon.current.length; i++)
         refLabel.current[i].style.left =
           Math.round(refIcon.current[i].clientWidth / 2) -
           Math.round(refLabel.current[i].clientWidth / 2) +
           "px";
+      return () => {
+        es.close();
+      };
+    }
   }, [navigate]);
 
   const logout = useCallback(() => {
@@ -118,6 +152,7 @@ const Header = () => {
             <span className="menu-label" ref={pushRefLabel}>
               Notifications
             </span>
+            {notifications.length >0 && <span className="notifications-count">{notifications.length}</span>}
           </div>
           <div className="menu-item" ref={pushRefIcon} onClick={logout}>
             <FiLogOut className="header-logoutIcon menu-icon" />
@@ -127,6 +162,7 @@ const Header = () => {
           </div>
         </div>
       </header>
+      <ToastContainer/>
       <Outlet />
     </>
   );
