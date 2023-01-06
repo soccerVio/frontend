@@ -8,6 +8,7 @@ import Accueil from "./views/accueil/Accueil";
 import Header from "./components/layout/Header";
 import Reservations from "./views/reservations/Reservations";
 import Recherche from "./views/recherches/Recherche";
+import Profile from "./views/profile/Profile";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         ></Route>
         <Route path="/reservations" element={<Reservations />}/>
         <Route path="/recherche" element={<Recherche />} />
+        <Route path="/profile" element={<Profile />} />
       </Route>
     </Routes>
   );

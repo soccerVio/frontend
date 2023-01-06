@@ -85,10 +85,10 @@ const Header = () => {
         <TfiAnnouncement className="menu-icon" />*/}
         </nav>
         <div className="header-rightSide">
-          <div className="header-authUser">
+          <div className="header-authUser" onClick={() => navigate('/profile')}>
             {user.image ? (
               <img
-                src={`data:${user.image.type};base64,${user.image.content}`}
+                src={user.image}
                 className="header-imgUser"
                 alt="profil pic"
               />
