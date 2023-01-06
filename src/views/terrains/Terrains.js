@@ -5,14 +5,10 @@ import axios from "axios";
 import Terrain from "../../components/terrains/liste/Terrain";
 import AddTerrain from "../../components/terrains/addTerrain/AddTerrain";
 import Map from "../../components/map/Map";
-import {
-  getErrorToast,
-  getSuccessToast,
-  getWaringToast,
-} from "../../utils/toasts/Toast";
+import { getErrorToast, getSuccessToast, getWaringToast } from "../../utils/toasts/Toast";
 import { ToastContainer } from "react-toastify";
-import { verifyObjectFieldsNotNull } from "../../utils/functions/Function";
-import { isLogged, isProprietaire, userInfo } from "../../constants/user";
+import { customTime } from "../../utils/functions/Function";
+import { isLogged, isProprietaire, userInfo, isJoueur, } from "../../constants/user";
 import { useNavigate } from "react-router-dom";
 
 const Terrains = () => {
@@ -21,17 +17,9 @@ const Terrains = () => {
   const [images, setImages] = useState(null);
   const [terrains, setTerrains] = useState([]);
   const [terrain, setTerrain] = useState({
-    titre: "",
-    latitude: 0,
-    longitude: 0,
-    adresse: "",
-    heureO: "",
-    description: "",
-    heureF: "",
-    prixHr: 0,
-    nbrJoueur: 0,
-    avecDouche: false,
-    assure: false,
+    titre: "", adresse: "", latitude: 0, longitude: 0,
+    heureO: "", heureF: "",  prixHr: 0, nbrJoueur: 5,
+    avecDouche: false,assure: false, description: "",
     proprietaire: userInfo().id,
   });
 
@@ -41,12 +29,17 @@ const Terrains = () => {
 
   useEffect(() => {
     if (!isLogged()) navigate("/");
-    else getTerrains();
+    else {
+      if (isJoueur()) getTerrains();
+      else if (isProprietaire()) getTerrains(userInfo().id);
+    }
   }, []);
 
-  const getTerrains = useCallback(async () => {
+  const getTerrains = useCallback(async (idProp) => {
     try {
-      let response = await axios.get(backend_url);
+      let response = idProp
+        ? await axios.get(`${backend_url}/proprietaire/${idProp}`)
+        : await axios.get(backend_url);
       response.data.length === 0
         ? getWaringToast("Il n'y a pas de terrains!")
         : setTerrains(response.data);
@@ -56,20 +49,29 @@ const Terrains = () => {
   }, []);
 
   const enregistrerTerrain = useCallback(async () => {
-    if (verifyObjectFieldsNotNull()) {
-      const formData = new FormData();
-      formData.append("terrain", JSON.stringify(terrain));
-      for (let i = 0; i < images.length; i++)
-        formData.append("images", images[i]);
-      try {
-        let response = await axios.post(`${backend_url}/ajout`, formData, {
-          headers: { "Content-Type": "multipart/form-data" },
-        });
-        setOpenModalTerrainForm(false);
-        setTerrains([response.data, ...terrains]);
-        getSuccessToast("Terrain ajoutée avec succès");
-      } catch (error) {
-        getErrorToast("Désolé, un problème est survenu!");
+    if (terrain.titre !== "" && terrain.adresse !== "" &&
+          terrain.heureO !== "" && terrain.heureF !== "" && images !== null){
+      if (terrain.prixHr < 0) 
+        getErrorToast("Entrez un prix correcte!");
+      else {
+        if (customTime(terrain.heureF) <= customTime(terrain.heureO))
+          getErrorToast("Entrez des heures d'ouverture et de fermeture correctes!");
+        else {
+          const formData = new FormData();
+          formData.append("terrain", JSON.stringify(terrain));
+          for (let i = 0; i < images.length; i++)
+            formData.append("images", images[i]);
+          try {
+            let response = await axios.post(`${backend_url}/ajout`, formData, {
+              headers: { "Content-Type": "multipart/form-data" },
+            });
+            setOpenModalTerrainForm(false);
+            setTerrains([response.data, ...terrains]);
+            getSuccessToast("Terrain ajouté avec succès");
+          } catch (error) {
+            getErrorToast("Désolé, un problème est survenu!");
+          }
+        }
       }
     } else getErrorToast("Entrez tous les champs!");
   }, [images, terrain, terrains]);
@@ -85,15 +87,12 @@ const Terrains = () => {
   const searchByAdresse = useCallback(async (e) => {
     if (e.target.value !== "" && e.target.value !== null) {
       try {
-        let response = await axios.get(
-          `${backend_url}/search/${e.target.value}`
-        );
-        setTerrains(response.data)
+        let response = await axios.get(`${backend_url}/search/${e.target.value}`);
+        setTerrains(response.data);
       } catch (error) {
         console.log(error);
       }
-    }else
-      getTerrains();
+    } else getTerrains();
   }, []);
 
   return (
@@ -106,7 +105,6 @@ const Terrains = () => {
             placeholder="Recherche par adresse"
             onChange={searchByAdresse}
           />
-
           {isProprietaire() ? (
             <button
               className="terrains-ajout-btn"
@@ -147,6 +145,7 @@ const Terrains = () => {
             setOpenModalMap(false);
             setOpenModalTerrainForm(true);
           }}
+          showRegisterBtn
         >
           <Map
             latitude={terrain.latitude}
@@ -160,6 +159,7 @@ const Terrains = () => {
           openModal={setOpenModalTerrainForm}
           title="Les informations du terrain"
           onEnregistClick={enregistrerTerrain}
+          showRegisterBtn
         >
           <AddTerrain
             terrain={terrain}
@@ -168,6 +168,7 @@ const Terrains = () => {
           />
         </Modal>
       )}
+
       <ToastContainer />
     </>
   );

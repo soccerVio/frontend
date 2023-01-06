@@ -1,5 +1,6 @@
 import React from "react";
 import CostumSwitch from "../../../utils/switch/CustomSwitch";
+import './AddTerrain.css'
 
 const AddTerrain = ({ terrain, setImages, setTerrain }) => {
 
@@ -124,7 +125,7 @@ const AddTerrain = ({ terrain, setImages, setTerrain }) => {
             <option disabled value="">
               Choisissez le nombre de joueurs par équipe
             </option>
-            <option value="5">5 joueurs par équipe</option>
+            <option value="5" >5 joueurs par équipe</option>
             <option value="6">6 joueurs par équipe</option>
             <option value="7">7 joueurs par équipe</option>
             <option value="8">8 joueurs par équipe</option>

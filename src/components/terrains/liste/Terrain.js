@@ -17,7 +17,7 @@ const Terrain = ({ titre, prixHr, nbrJoueur, image, id }) => {
     >
       <h3 className="terrain-title">{titre}</h3>
       <img
-        src={`data:${image.type};base64,${image.content}`}
+        src={image}
         alt="stade"
         className="terrain-image"
       />

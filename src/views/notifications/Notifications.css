@@ -1,0 +1,27 @@
+:root {
+  --borderRadius: 15px;
+}
+
+.notifications-container {
+  padding: 30px 50px;
+  color: #fff;
+  display: flex;
+  column-gap: 50px;
+}
+
+.invit-annonces{
+  height: fit-content;
+  min-width: 40%;
+  display: grid;
+  row-gap: 15px;
+}
+@media only screen and (max-width: 1100px) {
+
+}
+
+@media only screen and (max-width: 700px) {
+}
+
+@media only screen and (max-width: 425px) {
+}
+

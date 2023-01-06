@@ -1,14 +1,18 @@
 import React, { useCallback, useEffect, useRef } from "react";
 import { BiHome, BiCalendar /*, BiUser*/ } from "react-icons/bi";
 import { /*MdOutlineReportProblem,*/ MdNotifications } from "react-icons/md";
-//import { TfiAnnouncement } from "react-icons/tfi";
+import { TfiAnnouncement } from "react-icons/tfi";
 import { FiLogOut } from "react-icons/fi";
 import { TbMapSearch, TbSoccerField } from "react-icons/tb";
 import "./Header.css";
 import { Outlet, useNavigate } from "react-router-dom";
 import { isJoueur, isLogged, userInfo } from "../../constants/user";
+import { useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
 
 const Header = () => {
+  const [notifications, setNotifications] = useState([]);
+
   const refLabel = useRef([]);
   const refIcon = useRef([]);
   const navigate = useNavigate();
@@ -18,12 +22,42 @@ const Header = () => {
 
   useEffect(() => {
     if (!isLogged()) navigate("/");
-    else
+    else {
+      let url =
+        process.env.REACT_APP_BACKEND_BASE_URL +
+        "notifications-push/" +
+        user.id;
+      const es = new EventSource(url);
+
+      es.addEventListener("user-list-event", (event) => {
+        const data = JSON.parse(event.data);
+        if(data.length > 0){
+          setNotifications(data);
+          for(let i=0 ; i<data.length; i++){
+            toast(data[i].content, {
+              position: "top-right",
+              autoClose: 10000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+          }
+        }
+      });
+      es.onerror = () => {
+        es.close();
+      };
       for (let i = 0; i < refIcon.current.length; i++)
         refLabel.current[i].style.left =
           Math.round(refIcon.current[i].clientWidth / 2) -
           Math.round(refLabel.current[i].clientWidth / 2) +
           "px";
+      return () => {
+        es.close();
+      };
+    }
   }, [navigate]);
 
   const logout = useCallback(() => {
@@ -79,10 +113,18 @@ const Header = () => {
               </span>
             </div>
           )}
-
-          {/*<BiUser className="menu-icon" />
-        <MdOutlineReportProblem className="menu-icon" />
-        <TfiAnnouncement className="menu-icon" />*/}
+          {isJoueur() && (
+            <div
+              className="menu-item"
+              ref={pushRefIcon}
+              onClick={() => navigate("/annonces")}
+            >
+              <TfiAnnouncement className="menu-icon" />
+              <span className="menu-label" ref={pushRefLabel}>
+                Annonces
+              </span>
+            </div>
+          )}
         </nav>
         <div className="header-rightSide">
           <div className="header-authUser" onClick={() => navigate('/profile')}>
@@ -101,11 +143,16 @@ const Header = () => {
             )}
             <span className="header-nameUser">{user.nomComplet}</span>
           </div>
-          <div className="menu-item notif-item" ref={pushRefIcon}>
+          <div
+            className="menu-item notif-item"
+            ref={pushRefIcon}
+            onClick={() => navigate("/notifications")}
+          >
             <MdNotifications className="header-notifIcon menu-icon" />
             <span className="menu-label" ref={pushRefLabel}>
               Notifications
             </span>
+            {notifications.length >0 && <span className="notifications-count">{notifications.length}</span>}
           </div>
           <div className="menu-item" ref={pushRefIcon} onClick={logout}>
             <FiLogOut className="header-logoutIcon menu-icon" />
@@ -115,6 +162,7 @@ const Header = () => {
           </div>
         </div>
       </header>
+      <ToastContainer/>
       <Outlet />
     </>
   );

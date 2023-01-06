@@ -1,0 +1,54 @@
+.annonces-list{
+    color: #fff;
+    padding: 70px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+}
+
+.annonce-component{
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    padding: 20px;
+    border: 1px solid #999;
+    border-radius: 10px;
+}
+
+.annonce-userInfos{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.annonce-userImage{
+    width: 40px;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.annonce-userInfos:hover .annonce-userName{
+    text-decoration: underline;
+}
+
+.annonce-description{
+    flex-grow: 1;
+}
+
+.annonce-reservationView{
+    color: #6565ff;
+    font-size: 14px;
+    cursor: pointer;
+    width: fit-content;
+}
+
+.annonce-reservationView:hover{
+    text-decoration: underline;
+}
+
+.annonce-ParticiperBtn{
+    padding: 7px 15px;
+    width: 25%;
+    font-size: 13px;
+}

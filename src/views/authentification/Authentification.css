@@ -19,10 +19,10 @@
   border: 1px solid var(--border-color);
   border-radius: 5px;
   background: #0f151af5;
-  color:#fff;
+  color: #fff;
 }
 
-.form-sigin{
+.form-sigin {
   width: 35%;
   padding: 50px 35px;
 }
@@ -37,11 +37,11 @@
   justify-content: space-between;
 }
 
-.inputs-password{
+.inputs-password {
   position: relative;
 }
 
-.show-hide-password{
+.show-hide-password {
   position: absolute;
   right: 8px;
   top: 9px;
@@ -80,11 +80,15 @@ input[name="password-signin"] {
   margin-bottom: var(--margin-bottom);
 }
 
-.radio-signup{
+.radio-type {
+  width: 100%;
+}
+
+.radio-signup {
   margin-right: 5px;
 }
 
-.radio-label-signup{
+.radio-label-signup {
   margin-right: 20px;
 }
 
@@ -94,12 +98,12 @@ input[name="password-signin"] {
   font-size: 15px;
   margin-top: 10px;
   margin-bottom: 10px;
-  margin-left: calc((100% - (40% + 14px))/2);
+  margin-left: calc((100% - (40% + 14px)) / 2);
 }
 
-.submit-signin-btn{
+.submit-signin-btn {
   width: 50%;
-  margin-left: calc((100% - (50% + 14px))/2);
+  margin-left: calc((100% - (50% + 14px)) / 2);
 }
 
 .parag-authentification {
@@ -124,7 +128,7 @@ input[name="password-signin"] {
   font-size: 30px;
 }
 
-.icon-authentification:hover{
+.icon-authentification:hover {
   color: #bdbcbc;
   transition: 0.7s;
 }
@@ -140,6 +144,32 @@ input[name="password-signin"] {
   cursor: pointer;
 }
 
-.last-parag-authentification span:hover{
+.last-parag-authentification span:hover {
   text-decoration: underline;
+}
+
+@media only screen and (max-width: 1050px) {
+  .form-authentification {
+    width: 60%;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .form-authentification {
+    width: 75%;
+  }
+
+  .icons-authentification {
+    width: 35%;
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  .form-authentification {
+    width: 95%;
+  }
+
+  .icons-authentification {
+    width: 50%;
+  }
 }

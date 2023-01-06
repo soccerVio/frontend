@@ -1,0 +1,135 @@
+.add-reservation-infos{
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.add-reservation-info{
+    font-size: 15px;
+}
+
+.add-reservation-info-joueurs{
+    display: flex;
+    align-items: flex-end;
+    column-gap: 10px;
+    width: 35%;
+    position: relative;
+}
+
+.list-joueurs{
+    background-color: #fff;
+    position: absolute;
+    top: 50px;
+    width: 85%;
+    padding: 5px;
+    border: 1px solid #a1a1a1;
+    border-radius: 5px;
+}
+
+.list-joueurs span{
+    display: block;   
+    text-align: center;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.list-joueurs span:hover{
+    background-color: #dfdede;
+    transition: 0.3s;
+}
+
+.add-reservation-info-joueurs div{
+    flex-grow: 1;
+}
+
+.add-reservation-info-plus{
+    font-size: 25px;
+    color: #008740;
+    cursor: pointer;
+}
+
+.add-reservation-info-plus:hover{
+    transition: 0.7s;
+    color: #016b32;
+}
+
+.add-reservation-label{
+    display: block;
+    margin-bottom: 5px;
+}
+
+.add-reservation-input{
+    width: 100%;
+    padding: 2px 5px;
+    border: none;
+    border-bottom: 1px solid #999;
+    outline: none;
+}
+
+.add-reservation-genreF{
+    margin-left: 10px;
+}
+
+.add-reservation-list-joueurs{
+    border: 1px solid rgb(197, 197, 197);
+    margin-bottom: 20px;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 14px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.add-reservation-joueur{
+    background-color: rgb(197, 197, 197);
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: default;
+}
+
+.add-reservation-joueur:hover {
+    background-color: rgb(160, 159, 159);
+    transition: 0.5s;
+}
+
+.add-reservation-date{
+    display: flex;
+    justify-content: center;
+}
+
+.add-reservation-date-input{
+    width: 50%;
+}
+
+.add-reservation-heuresDispo{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.add-reservation-heure{
+    font-size: 15px;
+    background-color: #008740;
+    text-align: center;
+    padding: 7px 0;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #fff;
+}
+
+.add-reservation-heure:hover{
+    background-color: #02612e;
+    transition: 0.2s;
+}
+
+.add-reservation-heure.active{
+    background-color: #686868;
+}
+
+.add-reservation-heure.active:hover{
+    background-color: rgb(87, 87, 87);
+    transition: 0.2s;
+}
