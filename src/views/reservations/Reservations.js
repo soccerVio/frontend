@@ -67,7 +67,7 @@ const Reservations = () => {
   }, []);
 
   return (
-    <>
+    <div className="container-page">
       <ToastContainer />
       <div className="reservations">
         <div className="reservations-calendrier">
@@ -105,7 +105,7 @@ const Reservations = () => {
           parag="Si vous annuler la réservation vous ne pouvez revenir en arrière"
         />
       )}
-    </>
+    </div>
   );
 };
 

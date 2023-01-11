@@ -1,10 +1,10 @@
 import axios from "axios";
 import React, { useCallback, useState, useRef, useEffect } from "react";
 import {
-    FaFacebookSquare,
-    FaGooglePlusSquare,
-    FaTwitterSquare }
-      from "react-icons/fa";
+  FaFacebookSquare,
+  FaGooglePlusSquare,
+  FaTwitterSquare,
+} from "react-icons/fa";
 import { BiShow, BiHide } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 import "./Authentification.css";
@@ -20,32 +20,33 @@ const Signin = () => {
 
   const navigate = useNavigate();
 
-  useEffect(()=>{
-    if(isLogged())
-      navigate('/accueil')
-  },[navigate])
+  useEffect(() => {
+    if (isLogged()) navigate("/accueil");
+  }, [navigate]);
 
-  const submitSignin = useCallback(async () => {  
-    try {
-      let response = await axios.post(
-        `${process.env.REACT_APP_BACKEND_USERS_URL}sign-in`,
-        {
-          username: username,
-          password: password,
-        }
-      );
-      localStorage.setItem('user', JSON.stringify(response.data.user))
-      localStorage.setItem('token', response.data.token)
-      navigate("/accueil");
-    } catch (error) {
-      let titleError =
-        error.response.status === 403
-          ? "Username ou mot de passe sont incorrects!"
-          : "Désolé, un problème est survenu!";
-      getErrorToast(titleError);
-    }
-  },[username, password, navigate]);
-
+  const submitSignin = useCallback(async () => {
+    if (username.trim() !== "" && password.trim() !== "") {
+      try {
+        let response = await axios.post(
+          `${process.env.REACT_APP_BACKEND_USERS_URL}sign-in`,
+          {
+            username: username,
+            password: password,
+          }
+        );
+        localStorage.setItem("user", JSON.stringify(response.data.user));
+        localStorage.setItem("token", response.data.token);
+        navigate("/accueil");
+      } catch (error) {
+        let titleError =
+          error.response.status === 403
+            ? "Username ou mot de passe sont incorrects!"
+            : "Désolé, un problème est survenu!";
+        getErrorToast(titleError);
+      }
+    }else 
+      getErrorToast("Entrez tous les champs!");
+  }, [username, password]);
 
   return (
     <div className="container-authentification">

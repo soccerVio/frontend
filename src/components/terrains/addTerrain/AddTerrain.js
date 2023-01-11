@@ -1,9 +1,8 @@
 import React from "react";
 import CostumSwitch from "../../../utils/switch/CustomSwitch";
-import './AddTerrain.css'
+import "./AddTerrain.css";
 
 const AddTerrain = ({ terrain, setImages, setTerrain }) => {
-
   return (
     <div className="modal-form">
       <div className="modal-form-rowComp">
@@ -125,7 +124,7 @@ const AddTerrain = ({ terrain, setImages, setTerrain }) => {
             <option disabled value="">
               Choisissez le nombre de joueurs par équipe
             </option>
-            <option value="5" >5 joueurs par équipe</option>
+            <option value="5">5 joueurs par équipe</option>
             <option value="6">6 joueurs par équipe</option>
             <option value="7">7 joueurs par équipe</option>
             <option value="8">8 joueurs par équipe</option>
@@ -157,6 +156,55 @@ const AddTerrain = ({ terrain, setImages, setTerrain }) => {
             checked={terrain.assure}
             id="assure"
           />
+        </div>
+      </div>
+
+      <div className="modal-form-row">
+        <div className="modal-form-halfRow">
+          <label className="modal-form-label" htmlFor="dureeHr">
+            Durée du match (heures)
+          </label>
+          <select
+            id="dureeHr"
+            className="modal-form-input"
+            value={terrain.dureeMatchHr}
+            onChange={(e) =>
+              setTerrain({ ...terrain, dureeMatchHr: parseInt(e.target.value) })
+            }
+          >
+            <option disabled value="">
+              Choisissez la durée d'un match (heures)
+            </option>
+            <option value="0">0 Heure</option>
+            <option value="1">1 Heure</option>
+            <option value="2">2 Heures</option>
+            <option value="3">3 Heures</option>
+          </select>
+        </div>
+
+        <div className="modal-form-halfRow">
+          <label className="modal-form-label" htmlFor="dureeMin">
+            Durée du match (minutes)
+          </label>
+          <select
+            id="dureeMin"
+            className="modal-form-input"
+            value={terrain.dureeMatchMin}
+            onChange={(e) =>
+              setTerrain({
+                ...terrain,
+                dureeMatchMin: parseInt(e.target.value),
+              })
+            }
+          >
+            <option disabled value="">
+              Choisissez la durée d'un match (minutes)
+            </option>
+            <option value="0">0 minute</option>
+            <option value="15">15 minutes</option>
+            <option value="30">30 minutes</option>
+            <option value="45">45 minutes</option>
+          </select>
         </div>
       </div>
 

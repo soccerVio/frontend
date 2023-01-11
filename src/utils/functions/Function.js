@@ -1,6 +1,6 @@
 export function verifyObjectFieldsNotNull(object){
     for (let key in object) {
-        if (object[key] === null || object[key] === "")
+        if (object[key] === null || object[key].trim() === "")
             return false;
     }
     return true;

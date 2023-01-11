@@ -1,3 +1,169 @@
-.accueil{
-    color: #fff;
+.container-accueil{
+  background-color: #fff;
+}
+
+.accueil {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url("/public/images/accueil.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-image: -webkit-linear-gradient(
+    bottom,
+    #fff 0%,
+    rgba(105, 90, 166, 0.35) 99%,
+    rgba(105, 90, 166, 0.5) 100%
+  );
+  background-image: linear-gradient(
+    to top,
+    #fff 0%,
+    rgba(105, 90, 166, 0.35) 99%,
+    rgba(105, 90, 166, 0.5) 100%
+  );
+}
+
+.accueil-title {
+  font-size: 3rem;
+  opacity: 0.8;
+  color: #212529;
+}
+
+.accueil-content .accueil-subtitle {
+  font-size: calc(10px + (22 - 10) * ((100vw - 300px) / (1300 - 300)));
+  letter-spacing: calc(1px + (7 - 1) * ((100vw - 300px) / (1300 - 300)));
+  opacity: 0.6;
+  margin-top: -5px;
+  margin-bottom: 20px;
+}
+
+.accueil-apropos, .accueil-services, .accueil-chiffres, .accueil-footer{
+  width: 85%;
+  margin: auto;
+}
+
+.accueil-apropos{
+  margin-top: 50px;
+  display: flex;
+  align-items: center;
+}
+
+.accueil-apropos-image{
+  width: 40%;
+  height: fit-content;
+}
+
+.accueil-apropos-content-parag{
+  line-height: 1.8;
+}
+
+.accueil-apropos-content-title, .accueil-services-title, .accueil-chiffres-title{
+  font-size: 25px;
+  margin-bottom: 8px;
+  color: var(--blueColor);
+}
+
+.accueil-services, .accueil-chiffres{
+  margin-top: 125px;
+}
+
+.accueil-services-title, .accueil-chiffres-title{
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.accueil-services-content, .accueil-chiffres-content{
+  display: flex;
+  justify-content: space-around;
+}
+
+.accueil-service, .accueil-chiffre{
+  width: 22%;
+  border: 1px solid #dee2e6;
+  text-align: center;
+  border-radius: 4px;
+  padding: 60px 0;
+  position: relative;
+  cursor: default;
+}
+
+.accueil-service-icon, .accueil-chiffre-icon{
+  width: 45px;
+}
+
+.accueil-service-name, .accueil-chiffre-name{
+  font-size: 18px;
+}
+
+.accueil-service:hover .accueil-service-icon, .accueil-chiffre:hover .accueil-chiffre-icon{
+  scale: 0.85;
+}
+
+.accueil-service:hover .accueil-service-icon, .accueil-service:hover .accueil-service-name,
+.accueil-chiffre:hover .accueil-chiffre-icon, .accueil-chiffre:hover .accueil-chiffre-name{
+  transform: translateY(-55px);
+  transition: 0.5s;
+}
+
+.accueil-service-parag, .accueil-chiffre-parag{
+  position: absolute;
+  bottom: -30px;
+  font-size: 14px;
+  color: #888;
+  font-weight: 100;
+  padding: 40px 10px;
+  opacity: 0;
+}
+
+.accueil-chiffre-parag{
+  text-align: center;
+  width: 100%;
+  font-size: 50px;
+}
+
+.accueil-service:hover .accueil-service-parag, .accueil-chiffre:hover .accueil-chiffre-parag{
+  bottom: 0;
+  opacity: 1;
+  transition: 0.5s;
+}
+
+.accueil-footer{
+  padding: 20px 10px;
+  border-top: 1px solid rgb(209, 209, 209);
+  margin-top: 50px;
+  color: #888;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.accueil-footer-socialMedia{
+  width: 16%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.accueil-footer-socialMedia-icon{
+  padding: 4px;
+  border-radius: 50%;
+  border: 1px solid #888;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+}
+
+.accueil-footer-socialMedia-icon:hover{
+  background-color: #888;
+  color: #fff;
+  transition: 0.4s;
 }

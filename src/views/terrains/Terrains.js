@@ -20,7 +20,8 @@ const Terrains = () => {
     titre: "", adresse: "", latitude: 0, longitude: 0,
     heureO: "", heureF: "",  prixHr: 0, nbrJoueur: 5,
     avecDouche: false,assure: false, description: "",
-    proprietaire: userInfo().id,
+    dureeMatchHr: 0, dureeMatchMin: 0, proprietaire: userInfo().id,
+    
   });
 
   const backend_url = process.env.REACT_APP_BACKEND_TERRAINS_URL;
@@ -50,7 +51,9 @@ const Terrains = () => {
 
   const enregistrerTerrain = useCallback(async () => {
     if (terrain.titre !== "" && terrain.adresse !== "" &&
-          terrain.heureO !== "" && terrain.heureF !== "" && images !== null){
+          terrain.heureO !== "" && terrain.heureF !== "" && 
+          (terrain.dureeMatchHr !== 0 || terrain.dureeMatchMin !== 0) &&
+          images !== null  ){
       if (terrain.prixHr < 0) 
         getErrorToast("Entrez un prix correcte!");
       else {
@@ -61,7 +64,8 @@ const Terrains = () => {
           formData.append("terrain", JSON.stringify(terrain));
           for (let i = 0; i < images.length; i++)
             formData.append("images", images[i]);
-          try {
+            console.log(terrain);
+          /*try {
             let response = await axios.post(`${backend_url}/ajout`, formData, {
               headers: { "Content-Type": "multipart/form-data" },
             });
@@ -70,7 +74,7 @@ const Terrains = () => {
             getSuccessToast("Terrain ajouté avec succès");
           } catch (error) {
             getErrorToast("Désolé, un problème est survenu!");
-          }
+          }*/
         }
       }
     } else getErrorToast("Entrez tous les champs!");

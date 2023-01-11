@@ -24,12 +24,13 @@
 
 .form-sigin {
   width: 35%;
-  padding: 50px 35px;
+  padding: 50px 35px 25px;
 }
 
 .title-authentification {
   text-align: center;
   margin-bottom: 25px;
+  font-weight: 100;
 }
 
 .inputs-authentification {
@@ -52,11 +53,10 @@
 
 .input-authentification {
   outline: 0;
-  padding: 10px;
+  padding: 8px;
   background: #040c0a;
   border-radius: 3px;
   border: 1px solid var(--border-color);
-  font-size: 14px;
   color: #fff;
 }
 
@@ -90,25 +90,22 @@ input[name="password-signin"] {
 
 .radio-label-signup {
   margin-right: 20px;
+  font-size: 14px;
+  position: relative;
+  top: -2px;
 }
 
 .submit-authentification-btn {
   width: 40%;
   padding: 7px;
-  font-size: 15px;
+  font-size: 14px;
   margin-top: 10px;
   margin-bottom: 10px;
   margin-left: calc((100% - (40% + 14px)) / 2);
 }
 
-.submit-signin-btn {
-  width: 50%;
-  margin-left: calc((100% - (50% + 14px)) / 2);
-}
-
 .parag-authentification {
   text-align: center;
-  font-size: 17px;
   margin-top: 20px;
 }
 
@@ -135,8 +132,8 @@ input[name="password-signin"] {
 
 .last-parag-authentification {
   text-align: center;
-  font-size: 15px;
-  margin-top: 25px;
+  font-size: 12px;
+  margin-top: 45px;
 }
 
 .last-parag-authentification span {

@@ -1,11 +1,18 @@
+:root{
+  --blueColor:rgba(30,136,229,1);
+  --blackColor:rgba(53,54,59,1);
+  --greenColor:rgba(57,196,73,1);
+  --redColor:rgba(246,45,81,1);
+}
+
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #0A1814;
+  background-color: #f2f7f8;
 }
 
 *{
-  font-family: -apple-system, BlinkMacSystemFont, 'Youtube Sans Light', 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: -apple-system, BlinkMacSystemFont, 'Poppins', 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
     box-sizing: border-box;
@@ -30,4 +37,9 @@ button{
 button:hover{
   transition: 0.7s;
   background-color: #016b32;
+}
+
+.container-page{
+  position: relative;
+  top: 60px;
 }

@@ -17,16 +17,21 @@
 }
 
 .header {
-  background-color: #040c0a;
-  height: 70px;
+  background-color: var(--blueColor);
+  height: 60px;
   justify-content: space-between;
   padding: 0 20px;
   color: #fff;
+  position: fixed;
+  right: 0;
+  left: 0;
+  top: 0;
+  z-index: 200;
 }
 
 .header-logo {
   cursor: default;
-  font-size: 25px;
+  font-size: 21px;
 }
 
 .menu {
@@ -39,16 +44,16 @@
 }
 
 .menu-icon {
-  font-size: 30px;
+  font-size: 26px;
 }
 
 .menu-label {
   position: absolute;
   bottom: -30px;
-  background-color: #3a3a3a;
+  background-color: var(--blackColor);
   padding: 2px 5px;
   border-radius: 5px;
-  font-size: 14px;
+  font-size: 13px;
   opacity: 0;
 }
 
@@ -68,27 +73,32 @@
 }
 
 .header-imgUser {
-  width: 35px;
+  width: 32px;
   aspect-ratio: 1/1;
   border-radius: 50%;
   margin-right: 10px;
 }
 
+.header-nameUser{
+  font-size: 14px;
+}
+
 .header-logoutIcon,
 .header-notifIcon {
-  font-size: 27px;
+  font-size: 24px;
 }
 
 .notifications-count{
   position: absolute;
-  background-color: #4949ff;
-  font-size: 12px;
+  background-color: var(--redColor);
+  font-size: 11px;
   border-radius: 50%;
   width: 16px;
   height: 16px;
   text-align: center;
-  left: 20px;
-  top: -5px;
+  left: 17px;
+  top: -6px;
+  padding: 0px 3px;
 }
 
 @media only screen and (max-width: 1000px) {

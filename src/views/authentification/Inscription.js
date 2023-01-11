@@ -40,6 +40,8 @@ const Inscription = () => {
         console.log(error);
         if (error.response.status === 405)
           getErrorToast("Username ou email existe déja!");
+        else if (error.response.status === 400)
+          getErrorToast("Entrez un email convenable!");
         else
           getErrorToast("Désolé, un problème est survenu!");
       }
@@ -114,7 +116,7 @@ const Inscription = () => {
               name="type"
               className="radio-signup"
             />
-            <span>Joueur</span>
+            <span className="radio-label-signup">Joueur</span>
           </div>
         </div>
         <button className="submit-authentification-btn" onClick={submitSignup}>
