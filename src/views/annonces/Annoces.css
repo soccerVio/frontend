@@ -1,5 +1,4 @@
 .annonces-list{
-    color: #fff;
     padding: 70px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -11,8 +10,10 @@
     flex-direction: column;
     row-gap: 20px;
     padding: 20px;
-    border: 1px solid #999;
     border-radius: 10px;
+    background-color: #fff;
+    box-shadow: rgb(100 100 100 / 35%) 0px 2px 8px;
+    font-size: 14px;
 }
 
 .annonce-userInfos{
@@ -37,7 +38,7 @@
 }
 
 .annonce-reservationView{
-    color: #6565ff;
+    color: var(--blueColor);
     font-size: 14px;
     cursor: pointer;
     width: fit-content;

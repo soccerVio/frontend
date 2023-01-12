@@ -159,7 +159,7 @@ const AddTerrain = ({ terrain, setImages, setTerrain }) => {
         </div>
       </div>
 
-      <div className="modal-form-row">
+      {/*<div className="modal-form-row">
         <div className="modal-form-halfRow">
           <label className="modal-form-label" htmlFor="dureeHr">
             Durée du match (heures)
@@ -206,7 +206,7 @@ const AddTerrain = ({ terrain, setImages, setTerrain }) => {
             <option value="45">45 minutes</option>
           </select>
         </div>
-      </div>
+          </div>*/}
 
       <div className="modal-form-rowComp">
         <label className="modal-form-label" htmlFor="description">

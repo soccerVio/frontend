@@ -78,7 +78,9 @@ const DetailsTerrain = () => {
           reservation.idJoueurs.length + reservation.nbrJoueurManq >
           terrain.nbrJoueur * 2
         )
-          getErrorToast("Le nombre de joueurs maximum est " + terrain.nbrJoueur * 2);
+          getErrorToast(
+            "Le nombre de joueurs maximum est " + terrain.nbrJoueur * 2
+          );
         else {
           try {
             let response = await axios.post(
@@ -87,8 +89,8 @@ const DetailsTerrain = () => {
             );
             getSuccessToast("Réservation ajouté avec succès");
             setShowModalAddReserv(false);
-            if (reservation.nbrJoueurManq > 0){
-              setReservation({...response.data}); 
+            if (reservation.nbrJoueurManq > 0) {
+              setReservation({ ...response.data });
               setShowConfirmAnnonce(true);
             }
           } catch (error) {
@@ -139,169 +141,171 @@ const DetailsTerrain = () => {
 
   return (
     <>
-      {terrain && (
-        <div className="detailsTerrain-container">
-          <div className="detailsTerrain-images">
-            <img
-              src={mainImage}
-              alt="stade"
-              className="detailsTerrain-mainImage"
+      <div className="container-page-with-bg">
+        {terrain && (
+          <div className="detailsTerrain-container">
+            <div className="detailsTerrain-images">
+              <img
+                src={mainImage}
+                alt="stade"
+                className="detailsTerrain-mainImage"
+              />
+              <div className="detailsTerrain-otherImages">
+                {terrain.images.map((image) => (
+                  <img
+                    src={image}
+                    alt="stade"
+                    className="detailsTerrain-smallImage"
+                    key={image}
+                    onClick={() => setMainImage(image)}
+                  />
+                ))}
+              </div>
+            </div>
+            <div className="detailsTerrain-content">
+              <div className="detailsTerrain-row">
+                <h2 className="detailsTerrain-titre">{terrain.titre}</h2>
+              </div>
+              <div className="detailsTerrain-row">
+                <span>Adresse : </span>
+                <span>{terrain.adresse}</span>
+              </div>
+              <div className="detailsTerrain-row">
+                <span>Date de création : </span>
+                <span>{customDate(terrain.dateCreation)}</span>
+              </div>
+              <div className="detailsTerrain-row">
+                <span>Heure d'ouverture : </span>
+                {customTime(terrain.heureO)}
+                <span></span>
+              </div>
+              <div className="detailsTerrain-row">
+                <span>Heure de fermeture : </span>
+                {customTime(terrain.heureF)}
+                <span></span>
+              </div>
+              <div className="detailsTerrain-row">
+                <span>Prix par heure : </span>
+                <span>{terrain.prixHr} DH</span>
+              </div>
+              <div className="detailsTerrain-row">
+                <span>Joueurs par équipes : </span>
+                <span>{terrain.nbrJoueur} joueurs</span>
+              </div>
+              <div className="detailsTerrain-row">
+                <span>Propriétaire : </span>
+                <span>{terrain.proprietaire.nomComplet}</span>
+              </div>
+              <div className="detailsTerrain-row">
+                {terrain.avecDouche ? (
+                  <span>Avec douche</span>
+                ) : (
+                  <span>Sans douche</span>
+                )}
+              </div>
+              <div className="detailsTerrain-row">
+                {terrain.assure ? (
+                  <span>Avec assurance</span>
+                ) : (
+                  <span>Sans assurance</span>
+                )}
+              </div>
+              <div className="detailsTerrain-row">
+                <span className="detailsTerrain-description">
+                  {terrain.description}
+                </span>
+              </div>
+              <div className="detailsTerrain-row">
+                {isJoueur() && (
+                  <button
+                    className="detailsTerrain-btn"
+                    onClick={() => setShowModalAddReserv(true)}
+                  >
+                    Réserver
+                  </button>
+                )}
+                {isProprietaire() && (
+                  <>
+                    <button
+                      className="detailsTerrain-btn detailsTerrain-btn-editer"
+                      onClick={() => setShowModal(true)}
+                    >
+                      Editer
+                    </button>
+                    <button
+                      className="detailsTerrain-btn detailsTerrain-btn-supprimer"
+                      onClick={() => setShowConfirm(true)}
+                    >
+                      Supprimer
+                    </button>
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+        {showConfirmAnnonce && (
+          <Confirm
+            setShowConfirm={setShowConfirmAnnonce}
+            confirmClick={() => {
+              setShowModalAnnonce(true);
+              setShowConfirmAnnonce(false);
+            }}
+            title="Publier une annonce"
+            parag="Voulez-vous publier une annonce pour remplir les équipes?"
+          />
+        )}
+        {showConfirm && (
+          <Confirm
+            setShowConfirm={setShowConfirm}
+            confirmClick={deleteTerrain}
+            title="Vous êtes sur?"
+            parag="Si vous annuler le terrain vous ne pouvez revenir en arrière"
+          />
+        )}
+        {showModal && (
+          <Modal
+            openModal={setShowModal}
+            title="La modification du terrain"
+            onEnregistClick={updateTerrain}
+            showRegisterBtn
+          >
+            <AddTerrain
+              terrain={terrain}
+              setTerrain={setTerrain}
+              setImages={setImages}
             />
-            <div className="detailsTerrain-otherImages">
-              {terrain.images.map((image) => (
-                <img
-                  src={image}
-                  alt="stade"
-                  className="detailsTerrain-smallImage"
-                  key={image}
-                  onClick={() => setMainImage(image)}
-                />
-              ))}
-            </div>
-          </div>
-          <div className="detailsTerrain-content">
-            <div className="detailsTerrain-row">
-              <h2 className="detailsTerrain-titre">{terrain.titre}</h2>
-            </div>
-            <div className="detailsTerrain-row">
-              <span>Adresse : </span>
-              <span>{terrain.adresse}</span>
-            </div>
-            <div className="detailsTerrain-row">
-              <span>Date de création : </span>
-              <span>{customDate(terrain.dateCreation)}</span>
-            </div>
-            <div className="detailsTerrain-row">
-              <span>Heure d'ouverture : </span>
-              {customTime(terrain.heureO)}
-              <span></span>
-            </div>
-            <div className="detailsTerrain-row">
-              <span>Heure de fermeture : </span>
-              {customTime(terrain.heureF)}
-              <span></span>
-            </div>
-            <div className="detailsTerrain-row">
-              <span>Prix par heure : </span>
-              <span>{terrain.prixHr} DH</span>
-            </div>
-            <div className="detailsTerrain-row">
-              <span>Joueurs par équipes : </span>
-              <span>{terrain.nbrJoueur} joueurs</span>
-            </div>
-            <div className="detailsTerrain-row">
-              <span>Propriétaire : </span>
-              <span>{terrain.proprietaire.nomComplet}</span>
-            </div>
-            <div className="detailsTerrain-row">
-              {terrain.avecDouche ? (
-                <span>Avec douche</span>
-              ) : (
-                <span>Sans douche</span>
-              )}
-            </div>
-            <div className="detailsTerrain-row">
-              {terrain.assure ? (
-                <span>Avec assurance</span>
-              ) : (
-                <span>Sans assurance</span>
-              )}
-            </div>
-            <div className="detailsTerrain-row">
-              <span className="detailsTerrain-description">
-                {terrain.description}
-              </span>
-            </div>
-            <div className="detailsTerrain-row">
-              {isJoueur() && (
-                <button
-                  className="detailsTerrain-btn"
-                  onClick={() => setShowModalAddReserv(true)}
-                >
-                  Réserver
-                </button>
-              )}
-              {isProprietaire() && (
-                <>
-                  <button
-                    className="detailsTerrain-btn detailsTerrain-btn-editer"
-                    onClick={() => setShowModal(true)}
-                  >
-                    Editer
-                  </button>
-                  <button
-                    className="detailsTerrain-btn detailsTerrain-btn-supprimer"
-                    onClick={() => setShowConfirm(true)}
-                  >
-                    Supprimer
-                  </button>
-                </>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
-      {showConfirmAnnonce && (
-        <Confirm
-          setShowConfirm={setShowConfirmAnnonce}
-          confirmClick={() => {
-            setShowModalAnnonce(true);
-            setShowConfirmAnnonce(false);
-          }}
-          title="Publier une annonce"
-          parag="Voulez-vous publier une annonce pour remplir les équipes?"
-        />
-      )}
-      {showConfirm && (
-        <Confirm
-          setShowConfirm={setShowConfirm}
-          confirmClick={deleteTerrain}
-          title="Vous êtes sur?"
-          parag="Si vous annuler le terrain vous ne pouvez revenir en arrière"
-        />
-      )}
-      {showModal && (
-        <Modal
-          openModal={setShowModal}
-          title="La modification du terrain"
-          onEnregistClick={updateTerrain}
-          showRegisterBtn
-        >
-          <AddTerrain
-            terrain={terrain}
-            setTerrain={setTerrain}
-            setImages={setImages}
-          />
-        </Modal>
-      )}
-      {showModalAddReserv && (
-        <Modal
-          openModal={setShowModalAddReserv}
-          title="Les informations du reservation"
-          onEnregistClick={reservTerrain}
-          showRegisterBtn
-        >
-          <AddReservation
-            reservation={reservation}
-            setReservation={setReservation}
-            terrain={terrain}
-          />
-        </Modal>
-      )}
-      {showModalAnnonce && (
-        <Modal
-          openModal={setShowModalAnnonce}
-          title="La description de l'annnoce"
-          onEnregistClick={ajoutAnnonce}
-          showRegisterBtn
-        >
-          <AddAnnonce
-            descriptionAnnnoce={descriptionAnnnoce}
-            setDescriptionAnnnoce={setDescriptionAnnnoce}
-          />
-        </Modal>
-      )}
-      <ToastContainer />
+          </Modal>
+        )}
+        {showModalAddReserv && (
+          <Modal
+            openModal={setShowModalAddReserv}
+            title="Les informations du reservation"
+            onEnregistClick={reservTerrain}
+            showRegisterBtn
+          >
+            <AddReservation
+              reservation={reservation}
+              setReservation={setReservation}
+              terrain={terrain}
+            />
+          </Modal>
+        )}
+        {showModalAnnonce && (
+          <Modal
+            openModal={setShowModalAnnonce}
+            title="La description de l'annnoce"
+            onEnregistClick={ajoutAnnonce}
+            showRegisterBtn
+          >
+            <AddAnnonce
+              descriptionAnnnoce={descriptionAnnnoce}
+              setDescriptionAnnnoce={setDescriptionAnnnoce}
+            />
+          </Modal>
+        )}
+        <ToastContainer />
+      </div>
     </>
   );
 };

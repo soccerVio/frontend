@@ -1,6 +1,5 @@
 .detailsTerrain-container{
-    color: #fff;
-    padding: 70px;
+    padding: 30px;
     display: flex;
     column-gap: 25px;
 }
@@ -13,6 +12,7 @@
     aspect-ratio: 1/1;
     object-fit: contain;
     background-color: black;
+    border-radius: 5px;
 }
 
 .detailsTerrain-otherImages{
@@ -60,17 +60,14 @@
 .detailsTerrain-btn-editer{
     margin-left: 10px;
     margin-right: 10px;
-    background-color: #281b95
-}
-
-.detailsTerrain-btn-editer:hover{
-    background-color: #1f1674
+    font-size: 14px;
 }
 
 .detailsTerrain-btn-supprimer{
-    background-color: #a71212;
+    background-color: var(--redColor);
+    font-size: 14px;
 }
 
 .detailsTerrain-btn-supprimer:hover{
-    background-color: #7e1313;
+    background-color: var(--redColorHover)
 }

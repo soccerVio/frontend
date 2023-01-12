@@ -57,7 +57,7 @@ const Annonces = () => {
 
   function AnnonceComponent({ annonce }) {
     return (
-      <div className="annonce-component">
+      <div className="annonce-component container-page">
         <div className="annonce-userInfos">
           {annonce.reservation.reservePar.image ? (
             <img
@@ -67,7 +67,7 @@ const Annonces = () => {
             />
           ) : (
             <img
-              src="/images/userImage.jpg"
+              src="/images/userImage.png"
               alt="user"
               className="annonce-userImage"
             />

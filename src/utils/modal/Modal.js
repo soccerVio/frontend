@@ -13,7 +13,7 @@ const Modal = ({
     <div className="modal-background">
       <div className="modal-container">
         <div className="modal-header">
-          <h3 className="modal-title">{title}</h3>
+          <p className="modal-title">{title}</p>
           <AiOutlineCloseCircle
             className="modal-icon-close"
             onClick={() => openModal(false)}

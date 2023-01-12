@@ -1,8 +1,12 @@
 :root{
   --blueColor:rgba(30,136,229,1);
+  --blueColorHover: rgb(22 116 199);
   --blackColor:rgba(53,54,59,1);
+  --blackColorHover:rgb(14, 14, 15);
   --greenColor:rgba(57,196,73,1);
+  --greenColorHover:rgb(48, 161, 62);
   --redColor:rgba(246,45,81,1);
+  --redColorHover:rgb(207, 40, 71);
 }
 
 body {
@@ -27,19 +31,27 @@ code {
 }
 
 button{
-  background-color: #008740;
+  background-color: var(--blueColor);
   cursor: pointer;
   border: none;
   border-radius: 5px;
   color:#fff;
+  font-size: 14px;
 }
 
 button:hover{
   transition: 0.7s;
-  background-color: #016b32;
+  background-color: var(--blueColorHover);
 }
 
-.container-page{
+.container-page, .container-page-with-bg{
   position: relative;
   top: 60px;
+}
+
+.container-page-with-bg{
+  margin: 50px;
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid #dbdbdb;
 }

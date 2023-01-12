@@ -28,7 +28,7 @@ const Recherche = () => {
   },[])
 
   return (
-    <div className="recherche">
+    <div className="recherche container-page">
       <div className="rechercher-creneaux">
         <div className="recherche-inputs">
           <label>Date de début</label>

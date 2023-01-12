@@ -5,28 +5,28 @@
 .terrains-header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 40px;
 }
 
 .terrainList-recherche {
-  width: 20%;
+  width: 25%;
   outline: none;
-  border: none;
-  padding: 5px;
-  border-radius: 2px;
+  border: 1px solid #e9e9e9;
+  padding: 8px 10px;
+  border-radius: 3px;
 }
 
 .terrains-ajout-btn {
-  padding: 8px 30px;
-  font-size: 16px;
+  padding: 8px 40px;
+  font-size: 14px;
 }
 
 .terrain-liste {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   grid-gap: 15px;
 }
-
 
 
 @media only screen and (max-width: 1000px) {

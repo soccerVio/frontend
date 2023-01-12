@@ -28,6 +28,7 @@
 
 .modal-title{
   color: #000;
+  font-size: 18px;
 }
 
 .modal-icon-close {
@@ -52,15 +53,14 @@
 
 .modal-btn {
   padding: 6px 15px;
-  font-size: 16px;
 }
 
 .modal-btn-close {
-  background-color: #cb3333;
+  background-color: var(--redColor);
 }
 
 .modal-btn-close:hover {
-  background-color: #a12a2a;
+  background-color: var(--redColorHover);
 }
 
 @media only screen and (max-width: 1100px) {

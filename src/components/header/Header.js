@@ -136,7 +136,7 @@ const Header = () => {
               />
             ) : (
               <img
-                src="/images/userImage.jpg"
+                src="/images/userImage.png"
                 className="header-imgUser"
                 alt="profil pic"
               />

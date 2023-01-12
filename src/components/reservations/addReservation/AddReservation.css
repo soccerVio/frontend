@@ -5,7 +5,7 @@
 }
 
 .add-reservation-info{
-    font-size: 15px;
+    font-size: 14px;
 }
 
 .add-reservation-info-joueurs{
@@ -87,6 +87,7 @@
     border-radius: 5px;
     padding: 5px;
     cursor: default;
+    font-size: 13px;
 }
 
 .add-reservation-joueur:hover {
@@ -111,7 +112,7 @@
 }
 
 .add-reservation-heure{
-    font-size: 15px;
+    font-size: 14px;
     background-color: #008740;
     text-align: center;
     padding: 7px 0;

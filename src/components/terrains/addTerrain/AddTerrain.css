@@ -3,6 +3,7 @@
     row-gap: 20px;
     flex-direction: column;
     padding: 5px;
+    font-size: 14px;
   }
   
   .modal-form-rowComp{
@@ -21,7 +22,7 @@
   
   .modal-form-label {
     display: block;
-    font-size: 15px;
+    
     margin-bottom: 5px;
   }
   

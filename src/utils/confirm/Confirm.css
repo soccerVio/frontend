@@ -24,7 +24,6 @@
 
 .confirm-parag{
     margin-top: 15px;
-    font-size: 20px;
 }
 
 .confirm-buttons{
@@ -36,19 +35,18 @@
 
 .confirm-button{
     padding: 8px 15px;
-    font-size: 16px;
 }
 
 .confirm-btn-confirmer{
-    background-color: #a71212;
+    background-color: var(--redColor);
 }
 
 .confirm-btn-confirmer:hover{
-    background-color: #7e1313;
+    background-color: var(--redColorHover);
 }
 
 .confirm-btn-annuler{
-    background-color: #525151;
+    background-color: var(--blackColor);
 }
 
 .confirm-btn-annuler:hover{

@@ -1,37 +1,31 @@
-.terrain-component{
-    color: #fff;
-    clear: both;
-    background-color: #0E1D19;
-    border: 1px solid #333;
-    border-radius: 5px;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    row-gap: 10px;
-    cursor: pointer;
+.terrain-component {
+  border-radius: 5px;
+  box-shadow: rgb(100 100 100 / 35%) 0px 2px 8px;
+  height: 400px;
 }
 
-.terrain-component:hover{
-    box-shadow: rgb(100 100 100 / 35%) 0px 2px 8px;
-    transition: 0.5s;
+.terrain-image {
+  width: 100%;
+  height: 200px;
+  object-fit: fill;
+  border-radius: 5px 5px 0 0;
 }
 
-.terrain-image{
-    width: 100%;
-    flex-grow: 1;
-    object-fit: fill;
-    aspect-ratio: 1/1;
+.terrain-infos {
+  margin: 0 20px;
+  height: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
-.terrain-more{
-    background-color: transparent;
-    width: fit-content;
-    color: #5454ff;
-    font-size: 14px;
-    margin-top: 20px;
+.terrain-more {
+  background: var(--blueColor);
+  padding: 5px 10px;
+  width: fit-content;
+  margin: 15px 20px;
 }
 
-.terrain-more:hover{
-    text-decoration: underline;
-    background-color: transparent;
+.terrain-more:hover {
+  background: var(--blueColorHover);
 }

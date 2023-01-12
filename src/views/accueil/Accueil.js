@@ -139,7 +139,7 @@ const Accueil = () => {
       </div>
 
       <div className="accueil-footer">
-        <div className="accueil-footer-coyright">Copyright 2023 © DevCRUD</div>
+        <div className="accueil-footer-coyright">Copyright 2023 © SoccerVio</div>
         <div className="accueil-footer-socialMedia">
           <FiFacebook className="accueil-footer-socialMedia-icon" />
           <FiTwitter className="accueil-footer-socialMedia-icon" />

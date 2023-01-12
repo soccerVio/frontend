@@ -102,6 +102,11 @@ input[name="password-signin"] {
   margin-top: 10px;
   margin-bottom: 10px;
   margin-left: calc((100% - (40% + 14px)) / 2);
+  background-color: #5454ff;
+}
+
+.submit-authentification-btn:hover{
+  background-color: #3c3cbd;
 }
 
 .parag-authentification {
