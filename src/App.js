@@ -1,3 +1,4 @@
+import React from "react";
 import Inscription from "./views/authentification/Inscription";
 import { Routes, Route } from "react-router-dom";
 import Signin from "./views/authentification/Signin";

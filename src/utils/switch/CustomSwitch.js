@@ -1,3 +1,5 @@
+
+import React from "react";
 import Switch from "react-switch";
 
 const CostumSwitch = ({ setChecked, checked }) => {
