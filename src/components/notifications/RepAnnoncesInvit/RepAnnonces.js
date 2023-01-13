@@ -7,6 +7,7 @@ import "./ParticipationInvit.css";
 import Reservation from "./reservation/Reservation";
 import { userInfo } from "../../../constants/user";
 import { getSuccessToast, getErrorToast } from "../../../utils/toasts/Toast";
+import { useNavigate } from "react-router";
 
 //nas li participaw hna fin ki9blhum wla la dak li 7et annonce
 const RepAnnonce = () => {
@@ -57,11 +58,18 @@ const RepAnnonce = () => {
       console.log(error);
     }
   }, []);
-
+  const navigate = useNavigate();
   function RepAnnonceComponent({ participants, reservation, idAnnonce }) {
     return participants.map((participant) => (
       <div className="invitation-participation" key={participant.id}>
-        <div className="invitation-participation-userInfos">
+        <div className="invitation-participation-userInfos"onClick={() =>
+            navigate("/profile", {
+              state: {
+                id: participant.id,
+                forAuthUser: false,
+              },
+            })
+          }>
           {participant.image ? (
             <img
               src={participant.image}

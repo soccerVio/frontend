@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useCallback, useEffect } from "react";
 import { useState } from "react";
 import { TbCircleCheck, TbCircleX } from "react-icons/tb";
+import { useNavigate } from "react-router";
 import { userInfo } from "../../../constants/user";
 import Modal from "../../../utils/modal/Modal";
 import { getSuccessToast } from "../../../utils/toasts/Toast";
@@ -33,29 +34,39 @@ const Invitation = () => {
   const accepteInvitation = useCallback(async (userInvitId) => {
     try {
       await axios.put(`${backend_url}/accepterByProp/${userInvitId}`);
-      setUsersInvitations([])
+      setUsersInvitations([]);
       getInvitationAccepted();
-      getSuccessToast('Invitation acceptée par succès')
+      getSuccessToast("Invitation acceptée par succès");
     } catch (error) {
       console.log(error);
     }
   }, []);
 
   const refuserInvitation = useCallback(async (userInvitId) => {
-    try{
+    try {
       await axios.delete(`${backend_url}/refuserInvit/${userInvitId}`);
-      setUsersInvitations([])
+      setUsersInvitations([]);
       getInvitationAccepted();
-      getSuccessToast('Invitation refusée par succès')
-    }catch(error){
+      getSuccessToast("Invitation refusée par succès");
+    } catch (error) {
       console.log(error);
     }
   }, []);
-
+  const navigate = useNavigate();
   function InvitationComponent({ invite, reservation, userInvitationId }) {
     return (
       <div className="invitation-participation">
-        <div className="invitation-participation-userInfos">
+        <div
+          className="invitation-participation-userInfos"
+          onClick={() =>
+            navigate("/profile", {
+              state: {
+                id: invite.id,
+                forAuthUser: false,
+              },
+            })
+          }
+        >
           {invite.image ? (
             <img
               src={invite.image}
@@ -78,7 +89,10 @@ const Invitation = () => {
             className="invitation-participation-icon invitation-participation-icon-accept"
             onClick={() => accepteInvitation(userInvitationId)}
           />
-          <TbCircleX className="invitation-participation-icon invitation-participation-icon-refuse" onClick={()=>refuserInvitation(userInvitationId)}/>
+          <TbCircleX
+            className="invitation-participation-icon invitation-participation-icon-refuse"
+            onClick={() => refuserInvitation(userInvitationId)}
+          />
         </div>
 
         <span
@@ -96,21 +110,23 @@ const Invitation = () => {
 
   return (
     <>
-      {usersInvitations.length > 0 && <div className="invitations-participations">
-        <div className="invitations-participations-title">
-          Joueurs invités à vos réserations
+      {usersInvitations.length > 0 && (
+        <div className="invitations-participations">
+          <div className="invitations-participations-title">
+            Joueurs invités à vos réserations
+          </div>
+          <div className="invitations-participations-content">
+            {usersInvitations.map((userInvitation) => (
+              <InvitationComponent
+                key={userInvitation.id}
+                invite={userInvitation.invite}
+                reservation={userInvitation.invitation.annonce.reservation}
+                userInvitationId={userInvitation.id}
+              />
+            ))}
+          </div>
         </div>
-        <div className="invitations-participations-content">
-          {usersInvitations.map((userInvitation) => (
-            <InvitationComponent
-              key={userInvitation.id}
-              invite={userInvitation.invite}
-              reservation={userInvitation.invitation.annonce.reservation}
-              userInvitationId={userInvitation.id}
-            />
-          ))}
-        </div>
-      </div>}
+      )}
       {showReservation && (
         <Modal openModal={setSowReservation} title="La réservation">
           <Reservation reservation={reservation} />

@@ -31,9 +31,9 @@ const Header = () => {
 
       es.addEventListener("user-list-event", (event) => {
         const data = JSON.parse(event.data);
-        if(data.length > 0){
+        if (data.length > 0) {
           setNotifications(data);
-          for(let i=0 ; i<data.length; i++){
+          for (let i = 0; i < data.length; i++) {
             toast(data[i].content, {
               position: "top-right",
               autoClose: 10000,
@@ -127,7 +127,17 @@ const Header = () => {
           )}
         </nav>
         <div className="header-rightSide">
-          <div className="header-authUser" onClick={() => navigate('/profile')}>
+          <div
+            className="header-authUser"
+            onClick={() =>
+              navigate("/profile", {
+                state: {
+                  id: userInfo().id,
+                  forAuthUser: true,
+                },
+              })
+            }
+          >
             {user.image ? (
               <img
                 src={user.image}
@@ -152,7 +162,11 @@ const Header = () => {
             <span className="menu-label" ref={pushRefLabel}>
               Notifications
             </span>
-            {notifications.length >0 && <span className="notifications-count">{notifications.length}</span>}
+            {notifications.length > 0 && (
+              <span className="notifications-count">
+                {notifications.length}
+              </span>
+            )}
           </div>
           <div className="menu-item" ref={pushRefIcon} onClick={logout}>
             <FiLogOut className="header-logoutIcon menu-icon" />

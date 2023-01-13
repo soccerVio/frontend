@@ -47,6 +47,15 @@
     margin-bottom: 20px;
 }
 
+.detailsTerrain-row-prop{
+    color: var(--blueColor);
+    cursor: pointer;
+}
+
+.detailsTerrain-row-prop:hover{
+    text-decoration: underline;
+}
+
 .detailsTerrain-description{
     margin-top: 30px;
     display: block;

@@ -9,6 +9,7 @@ import "./ParticipationInvit.css";
 import Reservation from "./reservation/Reservation";
 import { userInfo } from "../../../constants/user";
 import { getSuccessToast } from "../../../utils/toasts/Toast";
+import { useNavigate } from "react-router";
 
 //chi hed invitak bach tl3b match w kaskhl bavh t9bl wla la
 const Invite = () => {
@@ -51,11 +52,18 @@ const Invite = () => {
       console.log(error);
     }
   }, []);
-
+  const navigate = useNavigate();
   function InviteComponent({ user, reservation, userInvitationId }) {
     return (
       <div className="invitation-participation">
-        <div className="invitation-participation-userInfos">
+        <div className="invitation-participation-userInfos" onClick={() =>
+            navigate("/profile", {
+              state: {
+                id: user.id,
+                forAuthUser: false,
+              },
+            })
+          }>
           {user.image ? (
             <img
               src={user.image}

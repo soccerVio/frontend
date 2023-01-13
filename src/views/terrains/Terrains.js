@@ -10,7 +10,6 @@ import {
   getSuccessToast,
   getWaringToast,
 } from "../../utils/toasts/Toast";
-import { ToastContainer } from "react-toastify";
 import { customTime } from "../../utils/functions/Function";
 import {
   isLogged,
@@ -199,7 +198,6 @@ const Terrains = () => {
           </Modal>
         )}
 
-        <ToastContainer />
       </div>
     </>
   );

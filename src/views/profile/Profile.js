@@ -1,24 +1,26 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import './Profile.css';
-import axios from 'axios';
-import { userInfo } from '../../constants/user';
-import Modal from '../../utils/modal/Modal';
-import { get } from 'http';
+import React, { useState, useEffect, useCallback } from "react";
+import "./Profile.css";
+import axios from "axios";
+import { userInfo } from "../../constants/user";
+import Modal from "../../utils/modal/Modal";
+import { useLocation } from "react-router";
 
 const Profile = () => {
   const [user, setUser] = useState(null);
+  const { state } = useLocation();
   const [showModal, setShowModal] = useState(false);
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   useEffect(() => {
     getUser();
   }, []);
 
   const getUser = useCallback(async () => {
-    
     try {
-      let response = await axios.get(`http://localhost:8081/api/v1/users/id/${userInfo().id}`);
+      let response = await axios.get(
+        `http://localhost:8081/api/v1/users/id/${state.id}`
+      );
       setUser(response.data);
       // console.log(response.data);
     } catch (e) {
@@ -27,11 +29,11 @@ const Profile = () => {
   }, []);
 
   const editUser = useCallback(async () => {
-    if(password !== ''){
-      if(password !== confirmPassword)
+    if (password !== "") {
+      if (password !== confirmPassword)
         //MSG ERROR
-        console.log('error');
-      else{
+        console.log("error");
+      else {
         try {
           setShowModal(false);
         } catch (e) {
@@ -39,7 +41,6 @@ const Profile = () => {
         }
       }
     }
-    
   }, []);
 
   return (
@@ -47,7 +48,7 @@ const Profile = () => {
       {user && (
         <div className="container-page-with-bg">
           <div className="container-profil">
-            <img className="profil-pic" src="/images/player.jpg" />
+            <img className="profil-pic" src="/images/userImage.png" alt="" />
             <div className="profil-content">
               <div className="profil-info">
                 <span className="font">Nom Complet :</span>
@@ -62,46 +63,81 @@ const Profile = () => {
                 {user.email}
               </div>
               <div className="profil-info">
-                <span className="font">Numéro de Téléphone :</span> {user.numTel}
+                <span className="font">Numéro de Téléphone :</span>{" "}
+                {user.numTel}
               </div>
               <div className="profil-info">
                 <span className="font">Date de création : </span>
-                {user.dateCreation.split('T')[0]}
+                {user.dateCreation.split("T")[0]}
               </div>
               <div className="profil-info">
-                <button className="profil-edit-btn" onClick={() => setShowModal(true)}>
-                  Editer Profile
-                </button>
+                {state.forAuthUser && (
+                  <button
+                    className="profil-edit-btn"
+                    onClick={() => setShowModal(true)}
+                  >
+                    Editer Profile
+                  </button>
+                )}
               </div>
             </div>
           </div>
           {showModal && (
-            <Modal openModal={setShowModal} title="Modifier le profil" onEnregistClick={editUser} showRegisterBtn>
+            <Modal
+              openModal={setShowModal}
+              title="Modifier le profil"
+              onEnregistClick={editUser}
+              showRegisterBtn
+            >
               <div className="edit-user">
                 <div className="user-form-input">
                   <label>Nom Complet :</label>
-                  <input className="form-input" type="text" value={user.nomComplet} />
+                  <input
+                    className="form-input"
+                    type="text"
+                    value={user.nomComplet}
+                  />
                 </div>
                 <div className="user-form-input">
                   <label>Nom d'utlisateur :</label>
-                  <input className="form-input" type="text" value={user.username} />
+                  <input
+                    className="form-input"
+                    type="text"
+                    value={user.username}
+                  />
                 </div>
                 <div className="user-form-input">
                   <label>Email :</label>
-                  <input className="form-input" type="text" value={user.email} />
+                  <input
+                    className="form-input"
+                    type="text"
+                    value={user.email}
+                  />
                 </div>
 
                 <div className="user-form-input">
                   <label>Numéro de Téléphone :</label>
-                  <input className="form-input" type="text" value={user.numTel} />
+                  <input
+                    className="form-input"
+                    type="text"
+                    value={user.numTel}
+                  />
                 </div>
                 <div className="user-form-input">
                   <label>Mot de passe :</label>
-                  <input className="form-input" type="password" value={password} />
+                  <input
+                    className="form-input"
+                    type="password"
+                    value={password}
+                  />
                 </div>
                 <div className="user-form-input">
                   <label>Confirm mot de passe :</label>
-                  <input className="form-input" type="password" value={confirmPassword} />
+                  <input
+                    className="form-input"
+                    type="password"
+                    value={confirmPassword}
+                  />
                 </div>
               </div>
             </Modal>

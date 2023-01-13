@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useCallback, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
 import { isJoueur, isProprietaire, userInfo } from "../../../constants/user";
 import Confirm from "../../../utils/confirm/Confirm";
 import { customTime } from "../../../utils/functions/Function";
@@ -194,7 +193,18 @@ const DetailsTerrain = () => {
               </div>
               <div className="detailsTerrain-row">
                 <span>Propriétaire : </span>
-                <span>{terrain.proprietaire.nomComplet}</span>
+                <span className="detailsTerrain-row-prop"
+                  onClick={() =>
+                    navigate("/profile", {
+                      state: {
+                        id: terrain.proprietaire.id,
+                        forAuthUser: false,
+                      },
+                    })
+                  }
+                >
+                  {terrain.proprietaire.nomComplet}
+                </span>
               </div>
               <div className="detailsTerrain-row">
                 {terrain.avecDouche ? (
@@ -304,7 +314,6 @@ const DetailsTerrain = () => {
             />
           </Modal>
         )}
-        <ToastContainer />
       </div>
     </>
   );
