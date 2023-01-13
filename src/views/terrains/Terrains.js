@@ -87,8 +87,7 @@ const Terrains = () => {
           formData.append("terrain", JSON.stringify(terrain));
           for (let i = 0; i < images.length; i++)
             formData.append("images", images[i]);
-          console.log(terrain);
-          /*try {
+          try {
             let response = await axios.post(`${backend_url}/ajout`, formData, {
               headers: { "Content-Type": "multipart/form-data" },
             });
@@ -97,7 +96,7 @@ const Terrains = () => {
             getSuccessToast("Terrain ajouté avec succès");
           } catch (error) {
             getErrorToast("Désolé, un problème est survenu!");
-          }*/
+          }
         }
       }
     } else getErrorToast("Entrez tous les champs!");

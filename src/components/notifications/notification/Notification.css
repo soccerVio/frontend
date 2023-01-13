@@ -1,34 +1,28 @@
 .notifications {
   flex-grow: 1;
-  border: 1px solid #888;
   height: fit-content;
   border-radius: var(--borderRadius);
+  box-shadow: rgb(100 100 100 / 35%) 0px 2px 8px;
+  background-color: #fff;
 }
 
 .notification {
   display: flex;
-  padding: 20px;
+  align-items: center;
+  padding: 10px;
   column-gap: 25px;
-  background-color: #0e1d19;
   cursor: pointer;
-
+  margin: 10px;
+  border-radius: 5px;
 }
 
-.bg-notReaded{
-  background-color: #1c2e2a;
+.bg-notReaded {
+  background-color: rgb(235, 235, 235);
 }
 
-.notification:hover > * {
-  scale: 1.01;
+.notification:hover {
+  background-color: rgb(235, 235, 235);
   transition: 0.5s;
-}
-
-.notification:first-child {
-  border-radius: var(--borderRadius) var(--borderRadius) 0 0;
-}
-
-.notification:last-child {
-  border-radius: 0 0 var(--borderRadius) var(--borderRadius);
 }
 
 .notification > * {
@@ -43,11 +37,11 @@
 }
 
 .notification-content {
-  font-size: 15px;
+  font-size: 14px;
   flex-grow: 1;
 }
 
 .notification-heures {
   min-width: fit-content;
-  font-size: 13px;
+  font-size: 12px;
 }

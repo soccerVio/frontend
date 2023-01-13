@@ -8,7 +8,7 @@ import "./Header.css";
 import { Outlet, useNavigate } from "react-router-dom";
 import { isJoueur, isLogged, userInfo } from "../../constants/user";
 import { useState } from "react";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 
 const Header = () => {
   const [notifications, setNotifications] = useState([]);
@@ -162,7 +162,6 @@ const Header = () => {
           </div>
         </div>
       </header>
-      <ToastContainer/>
       <Outlet />
     </>
   );

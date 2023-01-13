@@ -1,16 +1,64 @@
-import React from "react";
+import axios from "axios";
+import React, { useCallback, useEffect } from "react";
 import { useState } from "react";
 import { TbCircleCheck, TbCircleX } from "react-icons/tb";
 import Modal from "../../../utils/modal/Modal";
 import "./ParticipationInvit.css";
 import Reservation from "./reservation/Reservation";
+import { userInfo } from "../../../constants/user";
+import { getSuccessToast, getErrorToast } from "../../../utils/toasts/Toast";
 
 //nas li participaw hna fin ki9blhum wla la dak li 7et annonce
-const RepAnnonce = ({ annonces }) => {
+const RepAnnonce = () => {
   const [showReservation, setSowReservation] = useState(false);
   const [reservation, setReservation] = useState(false);
+  const [annonces, setAnnonces] = useState([]);
 
-  function RepAnnonceComponent({ participants, reservation }) {
+  const backend_url = process.env.REACT_APP_BACKEND_ANNONCES_URL;
+
+  const userId = userInfo().id;
+
+  useEffect(() => {
+    getAnnoncesHaveParticip();
+  }, []);
+
+  const refuserAnnonce = useCallback(async (idParticipant, idAnnonce) => {
+    try {
+      await axios.put(
+        `${backend_url}/refuserParticipation/${idParticipant}/${idAnnonce}`
+      );
+      setAnnonces([]);
+      getAnnoncesHaveParticip();
+      getSuccessToast("Participation refusée avec succès");
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
+  const accepterAnnonce = useCallback(async (idParticipant, idAnnonce) => {
+    try {
+      await axios.put(
+        `${backend_url}/accepterParticipation/${idParticipant}/${idAnnonce}`
+      );
+      setAnnonces([]);
+      getAnnoncesHaveParticip();
+      getSuccessToast("Participation accepté avec succès");
+    } catch (error) {
+      if(error.response.status === 400)
+        getErrorToast("Le nombre de joueurs manquants est 0");
+    }
+  }, []);
+
+  const getAnnoncesHaveParticip = useCallback(async () => {
+    try {
+      let response = await axios.get(`${backend_url}/annoncesJoueur/${userId}`);
+      setAnnonces(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
+  function RepAnnonceComponent({ participants, reservation, idAnnonce }) {
     return participants.map((participant) => (
       <div className="invitation-participation" key={participant.id}>
         <div className="invitation-participation-userInfos">
@@ -22,7 +70,7 @@ const RepAnnonce = ({ annonces }) => {
             />
           ) : (
             <img
-              src="/images/userImage.jpg"
+              src="/images/userImage.png"
               alt="user"
               className="invitation-participation-userImage"
             />
@@ -32,8 +80,14 @@ const RepAnnonce = ({ annonces }) => {
           </span>
         </div>
         <div className="invitation-participation-icons">
-          <TbCircleCheck className="invitation-participation-icon invitation-participation-icon-accept" />
-          <TbCircleX className="invitation-participation-icon invitation-participation-icon-refuse" />
+          <TbCircleCheck
+            className="invitation-participation-icon invitation-participation-icon-accept"
+            onClick={() => accepterAnnonce(participant.id, idAnnonce)}
+          />
+          <TbCircleX
+            className="invitation-participation-icon invitation-participation-icon-refuse"
+            onClick={() => refuserAnnonce(participant.id, idAnnonce)}
+          />
         </div>
 
         <span
@@ -51,21 +105,24 @@ const RepAnnonce = ({ annonces }) => {
 
   return (
     <>
-      <div className="invitations-participations">
-        <div className="invitations-participations-title">
-          Réponses à vos annonces
-        </div>
+      {annonces.length > 0 && (
+        <div className="invitations-participations">
+          <div className="invitations-participations-title">
+            Réponses à vos annonces
+          </div>
 
-        <div className="invitations-participations-content">
-          {annonces.map((annonce) => (
-            <RepAnnonceComponent
-              key={annonce.id}
-              participants={annonce.participants}
-              reservation={annonce.reservation}
-            />
-          ))}
+          <div className="invitations-participations-content">
+            {annonces.map((annonce) => (
+              <RepAnnonceComponent
+                key={annonce.id}
+                participants={annonce.participants}
+                reservation={annonce.reservation}
+                idAnnonce={annonce.id}
+              />
+            ))}
+          </div>
         </div>
-      </div>
+      )}
       {showReservation && (
         <Modal openModal={setSowReservation} title="La réservation">
           <Reservation reservation={reservation} />

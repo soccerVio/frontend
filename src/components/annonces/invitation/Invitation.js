@@ -2,11 +2,13 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useCallback } from "react";
 import "./Invitation.css";
+import { userInfo } from "../../../constants/user";
 
-const Invitation = ({ inviteIds, setInviteIds }) => {
+const Invitation = ({ inviteIds, setInviteIds, propAnnonce }) => {
   const [invites, setInvites] = useState([]);
   const [nomJoueur, setNomJoueur] = useState("");
   const [selectedJoueurs, setSelectedJoueurs] = useState([]);
+  const userId = userInfo().id;
 
   const getUsers = useCallback(async (nomJoueur) => {
     setNomJoueur(nomJoueur);
@@ -35,20 +37,27 @@ const Invitation = ({ inviteIds, setInviteIds }) => {
 
         {selectedJoueurs.length > 0 && (
           <div className="add-invit-joueurs">
-            {selectedJoueurs.map((selectedJoueur) => (
-              <span
-                className="add-invit-nomJoueur"
-                key={selectedJoueur.id}
-                onClick={() => {
-                  setInviteIds([...inviteIds, selectedJoueur.id]);
-                  setInvites([...invites, selectedJoueur]);
-                  setSelectedJoueurs([]);
-                  setNomJoueur("");
-                }}
-              >
-                {selectedJoueur.nomComplet}
-              </span>
-            ))}
+            {selectedJoueurs
+              .filter(
+                (selectedJoueur) =>
+                  selectedJoueur.id !== userId &&
+                  !inviteIds.includes(selectedJoueur.id) &&
+                  selectedJoueur.id !== propAnnonce
+              )
+              .map((selectedJoueur) => (
+                <span
+                  className="add-invit-nomJoueur"
+                  key={selectedJoueur.id}
+                  onClick={() => {
+                    setInviteIds([...inviteIds, selectedJoueur.id]);
+                    setInvites([...invites, selectedJoueur]);
+                    setSelectedJoueurs([]);
+                    setNomJoueur("");
+                  }}
+                >
+                  {selectedJoueur.nomComplet}
+                </span>
+              ))}
           </div>
         )}
       </div>

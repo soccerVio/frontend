@@ -60,7 +60,7 @@ const Notification = () => {
           />
         ) : (
           <img
-            src="/images/userImage.jpg"
+            src="/images/userImage.png"
             alt="user"
             className="notification-userImage"
           />
@@ -72,6 +72,7 @@ const Notification = () => {
       </div>
     );
   }
+
   return (
     <>
       {notifications.length > 0 && (
@@ -83,7 +84,7 @@ const Notification = () => {
             />
           ))}
         </div>
-      )}
+          )}
     </>
   );
 };

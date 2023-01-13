@@ -4,18 +4,17 @@ import { useNavigate } from "react-router-dom";
 import InvitationAdd from "../../components/annonces/invitation/Invitation";
 import { userInfo } from "../../constants/user";
 import { customTime } from "../../utils/functions/Function";
-import { getSuccessToast, getWaringToast } from "../../utils/toasts/Toast";
+import { getErrorToast, getSuccessToast, getWaringToast } from "../../utils/toasts/Toast";
 import Modal from "../../utils/modal/Modal";
 import "./Annoces.css";
-import { ToastContainer } from "react-toastify";
 
 const Annonces = () => {
   const [showInvitationAdd, setShowInvitationAdd] = useState(false);
   const [inviteIds, setInviteIds] = useState([]);
   const [annonces, setAnnonces] = useState([]);
   const [annonceId, setAnnonceId] = useState([]);
+  const [propAnnonce, setPropAnnonce] = useState(0)
   const navigate = useNavigate();
-
   const userId = userInfo().id;
 
   const addInvitation = useCallback(async () => {
@@ -38,8 +37,13 @@ const Annonces = () => {
 
   const getAnnonces = useCallback(async () => {
     try {
-      let response = await axios.get(`${process.env.REACT_APP_BACKEND_ANNONCES_URL}`);
-      if (response.data.length > 0) setAnnonces(response.data);
+      let response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_ANNONCES_URL}`
+      );
+      let userAnnonces = response.data.filter(
+        (annonce) => annonce.reservation.reservePar.id !== userId
+      );
+      if (userAnnonces.length > 0) setAnnonces(userAnnonces);
       else getWaringToast("Il n ya aucune annonce!");
     } catch (error) {
       console.log(error);
@@ -48,9 +52,17 @@ const Annonces = () => {
 
   const participer = useCallback(async (idAnnonce) => {
     try {
-      await axios.put(`${process.env.REACT_APP_BACKEND_ANNONCES_URL}/participer/${userId}/${idAnnonce}`);
+      await axios.put(
+        `${process.env.REACT_APP_BACKEND_ANNONCES_URL}/participer/${userId}/${idAnnonce}`
+      );
       getSuccessToast("Participation ajouté avec succès");
     } catch (error) {
+      if(error.response.status === 405)
+        getErrorToast("Vous avez déja participé a cete annonce")
+      else if(error.response.status === 406)
+        getErrorToast("Vous etes déja parmi les joueurs du match")
+      else
+        getErrorToast("Désolé, un problème est survenu!")
       console.log(error);
     }
   }, []);
@@ -91,8 +103,9 @@ const Annonces = () => {
             <span
               className="annonce-reservationView"
               onClick={() => {
-                setShowInvitationAdd(true);
+                setPropAnnonce(annonce.reservation.reservePar.id)
                 setAnnonceId(annonce.id);
+                setShowInvitationAdd(true);
               }}
             >
               Inviter des utilisateurs
@@ -135,10 +148,9 @@ const Annonces = () => {
           showRegisterBtn
           onEnregistClick={addInvitation}
         >
-          <InvitationAdd inviteIds={inviteIds} setInviteIds={setInviteIds} />
+          <InvitationAdd inviteIds={inviteIds} setInviteIds={setInviteIds} propAnnonce={propAnnonce}/>
         </Modal>
       )}
-      <ToastContainer />
     </>
   );
 };

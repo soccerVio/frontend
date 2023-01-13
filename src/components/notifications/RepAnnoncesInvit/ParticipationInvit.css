@@ -1,7 +1,8 @@
 .invitations-participations {
   border-radius: var(--borderRadius);
-  border: 1px solid #888;
+  box-shadow: rgb(100 100 100 / 35%) 0px 2px 8px;
   height: fit-content;
+  background-color: #fff;
 }
 
 .invitations{
@@ -10,15 +11,10 @@
 
 .invitations-participations-title {
   text-align: center;
-  background-color: #0a1814;
-  padding: 17px 20px;
-  font-size: 18px;
+  padding: 13px;
   border-bottom: 1px solid #888;
+  background-color: rgb(248, 248, 248);
   border-radius: var(--borderRadius) var(--borderRadius) 0 0;
-}
-
-.invitations-participations-content {
-  background-color: #0e1d19;
 }
 
 .invitations-participations-content:last-child {
@@ -57,8 +53,7 @@
 }
 
 .invitation-participation-userName {
-  position: relative;
-  bottom: 3px;
+  font-size: 14px;
 }
 
 .invitation-participation-icon {
@@ -69,19 +64,19 @@
 
 .invitation-participation-icon-accept {
   margin-right: 10px;
-  color: #02bd5a;
+  color: var(--greenColor);
 }
 
 .invitation-participation-icon-accept:hover {
-  background-color: #02bd5a;
+  background-color: var(--greenColor);
 }
 
 .invitation-participation-icon-refuse {
-  color: #ff3030;
+  color: var(--redColor);
 }
 
 .invitation-participation-icon-refuse:hover {
-  background-color: #ff3030;
+  background-color: var(--redColor);
 }
 
 .invitation-participation-icon-accept:hover,
@@ -91,8 +86,8 @@
 }
 
 .invitation-participation-view {
-  color: #6565ff;
-  font-size: 13px;
+  color: var(--blueColor);
+  font-size: 12px;
   cursor: pointer;
   position: relative;
   bottom: 1px;

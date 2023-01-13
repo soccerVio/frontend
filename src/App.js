@@ -11,26 +11,27 @@ import Recherche from "./views/recherches/Recherche";
 import Profile from "./views/profile/Profile";
 import Notifications from "./views/notifications/Notifications";
 import Annonces from "./views/annonces/Annonces";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Signin />} />
-      <Route path="/inscription" element={<Inscription />} />
-      <Route element={<Header/>}>
-        <Route path="/accueil" element={<Accueil />}></Route>
-        <Route path="/terrains" element={<Terrain />}></Route>
-        <Route
-          path="/terrains/details"
-          element={<DetailsTerrain />}
-        ></Route>
-        <Route path="/reservations" element={<Reservations />}/>
-        <Route path="/recherche" element={<Recherche />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/notifications" element={<Notifications/>}/>
-        <Route path="/annonces" element={<Annonces/>}/>
-      </Route>
-    </Routes>
+    <>
+      <Routes>
+        <Route path="/" element={<Signin />} />
+        <Route path="/inscription" element={<Inscription />} />
+        <Route element={<Header />}>
+          <Route path="/accueil" element={<Accueil />}></Route>
+          <Route path="/terrains" element={<Terrain />}></Route>
+          <Route path="/terrains/details" element={<DetailsTerrain />}></Route>
+          <Route path="/reservations" element={<Reservations />} />
+          <Route path="/recherche" element={<Recherche />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/notifications" element={<Notifications />} />
+          <Route path="/annonces" element={<Annonces />} />
+        </Route>
+      </Routes>
+      <ToastContainer />
+    </>
   );
 }
 

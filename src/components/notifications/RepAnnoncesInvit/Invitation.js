@@ -1,39 +1,84 @@
-import React from "react";
+import axios from "axios";
+import React, { useCallback, useEffect } from "react";
 import { useState } from "react";
 import { TbCircleCheck, TbCircleX } from "react-icons/tb";
+import { userInfo } from "../../../constants/user";
 import Modal from "../../../utils/modal/Modal";
+import { getSuccessToast } from "../../../utils/toasts/Toast";
 import "./ParticipationInvit.css";
 import Reservation from "./reservation/Reservation";
 
 //men be3d ma dak invité ki9bl tidkhl mol annonce y9bl dak soyed li t invita
-const Invitation = ({ invitations }) => {
+const Invitation = () => {
+  const [usersInvitations, setUsersInvitations] = useState([]);
   const [showReservation, setSowReservation] = useState(false);
   const [reservation, setReservation] = useState(false);
+  const backend_url = process.env.REACT_APP_BACKEND_INVITATIONS_URL;
 
-  function InvitationComponent({ usersInvit, reservation }) {
-    return usersInvit.map(userInvit =>
-      <div className="invitation-participation" key={userInvit.id}>
+  useEffect(() => {
+    getInvitationAccepted();
+  }, []);
+
+  const getInvitationAccepted = useCallback(async () => {
+    try {
+      let response = await axios.get(
+        `${backend_url}/acceptedInivts/${userInfo().id}`
+      );
+      setUsersInvitations(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
+  const accepteInvitation = useCallback(async (userInvitId) => {
+    try {
+      await axios.put(`${backend_url}/accepterByProp/${userInvitId}`);
+      setUsersInvitations([])
+      getInvitationAccepted();
+      getSuccessToast('Invitation acceptée par succès')
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
+  const refuserInvitation = useCallback(async (userInvitId) => {
+    try{
+      await axios.delete(`${backend_url}/refuserInvit/${userInvitId}`);
+      setUsersInvitations([])
+      getInvitationAccepted();
+      getSuccessToast('Invitation refusée par succès')
+    }catch(error){
+      console.log(error);
+    }
+  }, []);
+
+  function InvitationComponent({ invite, reservation, userInvitationId }) {
+    return (
+      <div className="invitation-participation">
         <div className="invitation-participation-userInfos">
-          {userInvit.invite.image ? (
+          {invite.image ? (
             <img
-              src={userInvit.invite.image}
+              src={invite.image}
               alt="user"
               className="invitation-participation-userImage"
             />
           ) : (
             <img
-              src="/images/userImage.jpg"
+              src="/images/userImage.png"
               alt="user"
               className="invitation-participation-userImage"
             />
           )}
           <span className="invitation-participation-userName">
-            {userInvit.invite.nomComplet}
+            {invite.nomComplet}
           </span>
         </div>
         <div className="invitation-participation-icons">
-          <TbCircleCheck className="invitation-participation-icon invitation-participation-icon-accept" />
-          <TbCircleX className="invitation-participation-icon invitation-participation-icon-refuse"/>
+          <TbCircleCheck
+            className="invitation-participation-icon invitation-participation-icon-accept"
+            onClick={() => accepteInvitation(userInvitationId)}
+          />
+          <TbCircleX className="invitation-participation-icon invitation-participation-icon-refuse" onClick={()=>refuserInvitation(userInvitationId)}/>
         </div>
 
         <span
@@ -46,26 +91,26 @@ const Invitation = ({ invitations }) => {
           Voir réservation
         </span>
       </div>
-    )
-    
+    );
   }
 
   return (
     <>
-      <div className="invitations-participations">
+      {usersInvitations.length > 0 && <div className="invitations-participations">
         <div className="invitations-participations-title">
           Joueurs invités à vos réserations
         </div>
         <div className="invitations-participations-content">
-          {invitations.map((invitation) => (
+          {usersInvitations.map((userInvitation) => (
             <InvitationComponent
-              key={invitation.id}
-              usersInvit={invitation.invites}
-              reservation={invitation.annonce.reservation}
+              key={userInvitation.id}
+              invite={userInvitation.invite}
+              reservation={userInvitation.invitation.annonce.reservation}
+              userInvitationId={userInvitation.id}
             />
           ))}
         </div>
-      </div>
+      </div>}
       {showReservation && (
         <Modal openModal={setSowReservation} title="La réservation">
           <Reservation reservation={reservation} />
